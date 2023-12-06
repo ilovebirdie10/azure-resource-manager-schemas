@@ -641,7 +641,7 @@
         },
         "username": {
           "type": "string",
-          "description": "Username of Active Directory domain administrator"
+          "description": "A domain user account with permission to create machine accounts"
         }
       },
       "description": "Active Directory"
@@ -1900,10 +1900,7 @@
         "throughputMibps": {
           "oneOf": [
             {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 4500,
-              "default": 0
+              "type": "number"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"

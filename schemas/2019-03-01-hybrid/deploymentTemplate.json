@@ -231,10 +231,10 @@
           "$ref": "https://schema.management.azure.com/schemas/2017-12-01/Microsoft.Compute.json#/resourceDefinitions/virtualMachineScaleSets"
         },
         {
-          "$ref": "https://schema.management.azure.com/schemas/2017-12-01/Microsoft.Compute.json#/resourceDefinitions/vmssExtensions"
+          "$ref": "https://schema.management.azure.com/schemas/2017-12-01/Microsoft.Compute.Extensions.json#/resourceDefinitions/virtualMachineScaleSets_extensions"
         },
         {
-          "$ref": "https://schema.management.azure.com/schemas/2017-12-01/Microsoft.Compute.json#/resourceDefinitions/extensions"
+          "$ref": "https://schema.management.azure.com/schemas/2017-12-01/Microsoft.Compute.Extensions.json#/resourceDefinitions/virtualMachines_extensions"
         },
         {
           "$ref": "https://schema.management.azure.com/schemas/2017-03-30/Microsoft.Compute.json#/resourceDefinitions/disks"
@@ -553,7 +553,7 @@
               "$ref": "https://schema.management.azure.com/schemas/2019-01-21/Microsoft.Kusto.json#/resourceDefinitions/clusters_databases"
             },
             {
-              "$ref": "https://schema.management.azure.com/schemas/2019-01-21/Microsoft.Kusto.json#/resourceDefinitions/clusters_databases_dataconnections"
+              "$ref": "https://schema.management.azure.com/schemas/2019-01-21/Microsoft.Kusto.json#/resourceDefinitions/clusters_databases_dataConnections"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/2014-04-01-preview/Microsoft.Cache.json#/resourceDefinitions/Redis"
@@ -1000,10 +1000,10 @@
               "$ref": "https://schema.management.azure.com/schemas/2018-06-30/Microsoft.Automation.json#/resourceDefinitions/automationAccounts_runbooks"
             },
             {
-              "$ref": "https://schema.management.azure.com/schemas/2015-10-01/Microsoft.Media.json#/resourceDefinitions/mediaServices"
+              "$ref": "https://schema.management.azure.com/schemas/2015-10-01/Microsoft.Media.json#/resourceDefinitions/mediaservices"
             },
             {
-              "$ref": "https://schema.management.azure.com/schemas/2018-07-01/Microsoft.Media.json#/resourceDefinitions/mediaServices"
+              "$ref": "https://schema.management.azure.com/schemas/2018-07-01/Microsoft.Media.json#/resourceDefinitions/mediaservices"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/2018-07-01/Microsoft.Media.json#/resourceDefinitions/mediaServices_accountFilters"
@@ -1016,15 +1016,6 @@
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/2018-07-01/Microsoft.Media.json#/resourceDefinitions/mediaServices_contentKeyPolicies"
-            },
-            {
-              "$ref": "https://schema.management.azure.com/schemas/2018-07-01/Microsoft.Media.json#/resourceDefinitions/mediaServices_liveEvents"
-            },
-            {
-              "$ref": "https://schema.management.azure.com/schemas/2018-07-01/Microsoft.Media.json#/resourceDefinitions/mediaServices_liveEvents_liveOutputs"
-            },
-            {
-              "$ref": "https://schema.management.azure.com/schemas/2018-07-01/Microsoft.Media.json#/resourceDefinitions/mediaServices_streamingEndpoints"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/2018-07-01/Microsoft.Media.json#/resourceDefinitions/mediaServices_streamingLocators"
@@ -1129,10 +1120,10 @@
               "$ref": "https://schema.management.azure.com/schemas/2017-05-10/Microsoft.Resources.json#/resourceDefinitions/deployments"
             },
             {
-              "$ref": "https://schema.management.azure.com/schemas/2016-09-01-preview/Microsoft.Solutions.json#/resourceDefinitions/applianceDefinitions"
+              "$ref": "https://schema.management.azure.com/schemas/2016-09-01-preview/Microsoft.Solutions.resourcesolutions.json#/resourceDefinitions/applianceDefinitions"
             },
             {
-              "$ref": "https://schema.management.azure.com/schemas/2016-09-01-preview/Microsoft.Solutions.json#/resourceDefinitions/appliances"
+              "$ref": "https://schema.management.azure.com/schemas/2016-09-01-preview/Microsoft.Solutions.resourcesolutions.json#/resourceDefinitions/appliances"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/2016-07-07/Microsoft.ApiManagement.json#/resourceDefinitions/service"
@@ -1573,7 +1564,7 @@
               "$ref": "https://schema.management.azure.com/schemas/2016-04-30-preview/Microsoft.Compute.json#/resourceDefinitions/virtualMachineScaleSets"
             },
             {
-              "$ref": "https://schema.management.azure.com/schemas/2016-04-30-preview/Microsoft.Compute.json#/resourceDefinitions/extensions"
+              "$ref": "https://schema.management.azure.com/schemas/2016-04-30-preview/Microsoft.Compute.Extensions.json#/resourceDefinitions/virtualMachines_extensions"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/2016-06-27-preview/Microsoft.ContainerRegistry.json#/resourceDefinitions/registries"
@@ -1792,7 +1783,7 @@
               "$ref": "https://schema.management.azure.com/schemas/2017-03-30/Microsoft.Compute.json#/resourceDefinitions/virtualMachineScaleSets"
             },
             {
-              "$ref": "https://schema.management.azure.com/schemas/2017-03-30/Microsoft.Compute.json#/resourceDefinitions/extensions"
+              "$ref": "https://schema.management.azure.com/schemas/2017-03-30/Microsoft.Compute.Extensions.json#/resourceDefinitions/virtualMachines_extensions"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/2014-04-01/Microsoft.Sql.json#/resourceDefinitions/servers"
@@ -2251,10 +2242,10 @@
               "$ref": "https://schema.management.azure.com/schemas/2017-12-01/Microsoft.Compute.json#/resourceDefinitions/virtualMachineScaleSets"
             },
             {
-              "$ref": "https://schema.management.azure.com/schemas/2017-12-01/Microsoft.Compute.json#/resourceDefinitions/extensions"
+              "$ref": "https://schema.management.azure.com/schemas/2017-12-01/Microsoft.Compute.Extensions.json#/resourceDefinitions/virtualMachines_extensions"
             },
             {
-              "$ref": "https://schema.management.azure.com/schemas/2017-12-01/Microsoft.Compute.json#/resourceDefinitions/vmssExtensions"
+              "$ref": "https://schema.management.azure.com/schemas/2017-12-01/Microsoft.Compute.Extensions.json#/resourceDefinitions/virtualMachineScaleSets_extensions"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/2018-06-01/Microsoft.DBforMariaDB.json#/resourceDefinitions/servers"
@@ -2698,13 +2689,13 @@
               "$ref": "https://schema.management.azure.com/schemas/2018-04-01/Microsoft.ContainerInstance.json#/resourceDefinitions/containerGroups"
             },
             {
-              "$ref": "https://schema.management.azure.com/schemas/2018-06-01/Microsoft.Compute.Galleries.json#/resourceDefinitions/galleries"
+              "$ref": "https://schema.management.azure.com/schemas/2018-06-01/Microsoft.Compute.json#/resourceDefinitions/galleries"
             },
             {
-              "$ref": "https://schema.management.azure.com/schemas/2018-06-01/Microsoft.Compute.Galleries.json#/resourceDefinitions/galleries_images"
+              "$ref": "https://schema.management.azure.com/schemas/2018-06-01/Microsoft.Compute.json#/resourceDefinitions/galleries_images"
             },
             {
-              "$ref": "https://schema.management.azure.com/schemas/2018-06-01/Microsoft.Compute.Galleries.json#/resourceDefinitions/galleries_images_versions"
+              "$ref": "https://schema.management.azure.com/schemas/2018-06-01/Microsoft.Compute.json#/resourceDefinitions/galleries_images_versions"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/2018-06-01/Microsoft.Compute.json#/resourceDefinitions/images"
@@ -2980,13 +2971,13 @@
               "$ref": "https://schema.management.azure.com/schemas/2018-09-01-preview/Microsoft.DeploymentManager.json#/resourceDefinitions/steps"
             },
             {
-              "$ref": "https://schema.management.azure.com/schemas/2019-03-01/Microsoft.Compute.Galleries.json#/resourceDefinitions/galleries"
+              "$ref": "https://schema.management.azure.com/schemas/2019-03-01/Microsoft.Compute.json#/resourceDefinitions/galleries"
             },
             {
-              "$ref": "https://schema.management.azure.com/schemas/2019-03-01/Microsoft.Compute.Galleries.json#/resourceDefinitions/galleries_images"
+              "$ref": "https://schema.management.azure.com/schemas/2019-03-01/Microsoft.Compute.json#/resourceDefinitions/galleries_images"
             },
             {
-              "$ref": "https://schema.management.azure.com/schemas/2019-03-01/Microsoft.Compute.Galleries.json#/resourceDefinitions/galleries_images_versions"
+              "$ref": "https://schema.management.azure.com/schemas/2019-03-01/Microsoft.Compute.json#/resourceDefinitions/galleries_images_versions"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/2018-02-16-preview/Microsoft.WindowsIoT.json#/resourceDefinitions/deviceServices"

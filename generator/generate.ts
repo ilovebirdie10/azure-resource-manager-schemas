@@ -1,9 +1,11 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 import path from 'path';
 import os from 'os';
 import { findRecursive, findDirRecursive, executeCmd, rmdirRecursive, lowerCaseCompare, lowerCaseCompareLists, lowerCaseStartsWith, readJsonFile, writeJsonFile, safeMkdir, safeUnlink, fileExists, lowerCaseEquals, lowerCaseContains } from './utils';
 import * as constants from './constants';
 import { prepareReadme } from './specs';
-import chalk from 'chalk';
+import colors from 'colors';
 import { ScopeType, AutoGenConfig } from './models';
 import { get, set, flatten, uniq, concat, Dictionary, groupBy, keys, difference, pickBy } from 'lodash';
 
@@ -15,7 +17,7 @@ export interface SchemaConfiguration {
     relativePath: string;
 }
 
-interface SchemaReference {
+export interface SchemaReference {
     scope: ScopeType;
     type: string;
     reference: string;
@@ -28,7 +30,7 @@ interface RootSchemaConfiguration {
 
 const RootSchemaConfigs: Map<ScopeType, RootSchemaConfiguration> = new Map([
     [ScopeType.Tenant, constants.tenantRootSchema],
-    [ScopeType.Subcription, constants.subscriptionRootSchema],
+    [ScopeType.Subscription, constants.subscriptionRootSchema],
     [ScopeType.ResourceGroup, constants.resourceGroupRootSchema],
     [ScopeType.ManagementGroup, constants.managementGroupRootSchema]
 ]);
@@ -38,7 +40,7 @@ export async function getApiVersionsByNamespace(readme: string): Promise<Diction
     const apiVersionPaths = await findDirRecursive(searchPath, p => path.basename(p).match(apiVersionRegex) !== null);
 
     const output: Dictionary<string[]> = {};
-    for (const [namespace, _, apiVersion] of apiVersionPaths.map(p => path.relative(searchPath, p).split(path.sep))) {
+    for (const [namespace, , apiVersion] of apiVersionPaths.map(p => path.relative(searchPath, p).split(path.sep))) {
         output[namespace] = [...(output[namespace] ?? []), apiVersion];
     }
 
@@ -101,7 +103,7 @@ async function handleGeneratedSchema(readme: string, schemaPath: string, autoGen
 
 async function execAutoRest(tmpFolder: string, params: string[]) {
     await executeCmd(__dirname, `${__dirname}/node_modules/.bin/${autorestBinary}`, params);
-    if (!await fileExists(tmpFolder)) {
+    if (!fileExists(tmpFolder)) {
         return [];
     }
 
@@ -116,6 +118,7 @@ async function generateSchema(readme: string, tmpFolder: string) {
         `--output-folder=${tmpFolder}`,
         '--multiapi',
         '--pass-thru:subset-reducer',
+        '--pass-thru:schema-validator-swagger',
         readme,
     ];
 
@@ -126,6 +129,7 @@ async function generateSchema(readme: string, tmpFolder: string) {
     return await execAutoRest(tmpFolder, autoRestParams);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getSchemaRefs(output: any, scopeType: ScopeType, resourceDefinitionsPath: string): SchemaReference[] {
     const resourceDefs = output[resourceDefinitionsPath] || {};
     const resourceKeys = Object.keys(resourceDefs);
@@ -176,9 +180,9 @@ async function generateSchemaConfig(outputFile: string, namespace: string, apiVe
     const suffix = autoGenConfig?.suffix;
     const relativePath = `${apiVersion}/${getSchemaFileName(namespace, suffix)}`;
 
-    let output = await readJsonFile(outputFile);
+    const output = await readJsonFile(outputFile);
     if (autoGenConfig?.postProcessor) {
-        autoGenConfig?.postProcessor(namespace, apiVersion, output);
+        await autoGenConfig?.postProcessor(namespace, apiVersion, output);
 
         await writeJsonFile(outputFile, output);
     }
@@ -186,7 +190,7 @@ async function generateSchemaConfig(outputFile: string, namespace: string, apiVe
     const knownReferences = [
         ...getSchemaRefs(output, ScopeType.Tenant, 'tenant_resourceDefinitions'),
         ...getSchemaRefs(output, ScopeType.ManagementGroup, 'managementGroup_resourceDefinitions'),
-        ...getSchemaRefs(output, ScopeType.Subcription, 'subscription_resourceDefinitions'),
+        ...getSchemaRefs(output, ScopeType.Subscription, 'subscription_resourceDefinitions'),
         ...getSchemaRefs(output, ScopeType.ResourceGroup, 'resourceDefinitions'),
         ...getSchemaRefs(output, ScopeType.Extension, 'extension_resourceDefinitions'),
     ];
@@ -202,15 +206,15 @@ async function generateSchemaConfig(outputFile: string, namespace: string, apiVe
     const schemaPath = path.join(constants.schemasBasePath, relativePath);
 
     console.log('================================================================================================================================');
-    console.log('Filename: ' + chalk.green(schemaPath));
-    console.log('Provider Namespace: ' + chalk.green(namespace));
-    console.log('API Version: ' + chalk.green(apiVersion));
+    console.log('Filename: ' + colors.green(schemaPath));
+    console.log('Provider Namespace: ' + colors.green(namespace));
+    console.log('API Version: ' + colors.green(apiVersion));
 
     const tenantSchemaRefs = references.filter(x => x.scope & ScopeType.Tenant);
     if (tenantSchemaRefs.length > 0) {
         console.log('Resource Types (Tenant Scope):');
         for (const schemaRef of tenantSchemaRefs) {
-            console.log('- ' + chalk.green(schemaRef.type));
+            console.log('- ' + colors.green(schemaRef.type));
         }
     }
 
@@ -218,15 +222,15 @@ async function generateSchemaConfig(outputFile: string, namespace: string, apiVe
     if (managementGroupSchemaRefs.length > 0) {
         console.log('Resource Types (Management Group Scope):');
         for (const schemaRef of managementGroupSchemaRefs) {
-            console.log('- ' + chalk.green(schemaRef.type));
+            console.log('- ' + colors.green(schemaRef.type));
         }
     }
 
-    const subscriptionSchemaRefs = references.filter(x => x.scope & ScopeType.Subcription);
+    const subscriptionSchemaRefs = references.filter(x => x.scope & ScopeType.Subscription);
     if (subscriptionSchemaRefs.length > 0) {
         console.log('Resource Types (Subscription Scope):');
         for (const schemaRef of subscriptionSchemaRefs) {
-            console.log('- ' + chalk.green(schemaRef.type));
+            console.log('- ' + colors.green(schemaRef.type));
         }
     }
 
@@ -234,7 +238,7 @@ async function generateSchemaConfig(outputFile: string, namespace: string, apiVe
     if (resourceGroupSchemaRefs.length > 0) {
         console.log('Resource Types (Resource Group Scope):');
         for (const schemaRef of resourceGroupSchemaRefs) {
-            console.log('- ' + chalk.green(schemaRef.type));
+            console.log('- ' + colors.green(schemaRef.type));
         }
     }
 
@@ -242,7 +246,7 @@ async function generateSchemaConfig(outputFile: string, namespace: string, apiVe
     if (extensionSchemaRefs.length > 0) {
         console.log('Resource Types (Extension Scope):');
         for (const schemaRef of extensionSchemaRefs) {
-            console.log('- ' + chalk.green(schemaRef.type));
+            console.log('- ' + colors.green(schemaRef.type));
         }
     }
 
@@ -250,7 +254,7 @@ async function generateSchemaConfig(outputFile: string, namespace: string, apiVe
     if (unknownSchemaRefs.length > 0) {
         console.log('Resource Types (Unknown Scope):');
         for (const schemaRef of unknownSchemaRefs) {
-            console.log('- ' + chalk.red(schemaRef.type));
+            console.log('- ' + colors.red(schemaRef.type));
         }
     }
 
@@ -293,7 +297,7 @@ async function getCurrentTemplateRefs(scopeType: ScopeType, rootSchemaConfig: Ro
 }
 
 export async function clearAutoGeneratedSchemaRefs(autoGenList: AutoGenConfig[]) {
-    RootSchemaConfigs.forEach(async (rootSchemaConfig, scopeType) => {
+    for (const [scopeType, rootSchemaConfig] of RootSchemaConfigs) {
         const currentRefs = await getCurrentTemplateRefs(scopeType, rootSchemaConfig);
         const autogenlistedFiles = new Set(autoGenList.map(x => getSchemaFileName(x.namespace, x.suffix).toLowerCase()));
         const schemasToRemove = [];
@@ -310,11 +314,11 @@ export async function clearAutoGeneratedSchemaRefs(autoGenList: AutoGenConfig[])
         const template = await readJsonFile(rootSchemaConfig.file);
         set(template, rootSchemaConfig.jsonPath, newRefs.map(ref => ({ '$ref': ref })));
         await writeJsonFile(rootSchemaConfig.file, template);
-    });
+    }
 }
 
 export async function saveAutoGeneratedSchemaRefs(schemaConfigs: SchemaConfiguration[]) {
-    RootSchemaConfigs.forEach(async (rootSchemaConfig, scopeType) => {
+    for (const [scopeType, rootSchemaConfig] of RootSchemaConfigs) {
         const refs = flatten(schemaConfigs
             .map(c => c.references
                 .filter(x => x.scope & scopeType)
@@ -325,5 +329,5 @@ export async function saveAutoGeneratedSchemaRefs(schemaConfigs: SchemaConfigura
         const template = await readJsonFile(rootSchemaConfig.file);
         set(template, rootSchemaConfig.jsonPath, newRefs.map(ref => ({ '$ref': ref })));
         await writeJsonFile(rootSchemaConfig.file, template);
-    });
+    }
 }

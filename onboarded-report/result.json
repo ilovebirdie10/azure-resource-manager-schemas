@@ -25,18 +25,14 @@
   },
   {
     "basePath": "advisor/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.Advisor"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
     "basePath": "agrifood/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.AgFoodPlatform"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
@@ -52,7 +48,25 @@
     "onboarded": []
   },
   {
+    "basePath": "apicenter/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "apimanagement/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "app/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "appcomplianceautomation/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -101,10 +115,8 @@
   },
   {
     "basePath": "azure-kusto/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.Kusto"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
@@ -126,6 +138,18 @@
     "onboarded": []
   },
   {
+    "basePath": "azureintegrationspaces/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "azurelargeinstance/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "azurestack/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
@@ -141,10 +165,8 @@
   },
   {
     "basePath": "baremetalinfrastructure/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.BareMetalInfrastructure"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
@@ -155,6 +177,12 @@
   },
   {
     "basePath": "billing/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "billingbenefits/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -179,12 +207,20 @@
   },
   {
     "basePath": "cdn/resource-manager",
+    "onboardedToAutogen": "no",
+    "missing": [
+      "Microsoft.Cdn"
+    ],
+    "onboarded": []
+  },
+  {
+    "basePath": "changeanalysis/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
   },
   {
-    "basePath": "changeanalysis/resource-manager",
+    "basePath": "chaos/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -216,13 +252,26 @@
     "onboarded": []
   },
   {
+    "basePath": "communitytraining/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "compute/resource-manager",
     "onboardedToAutogen": "no",
     "missing": [
-      "Microsoft.Compute",
       "Microsoft.ContainerService"
     ],
     "onboarded": []
+  },
+  {
+    "basePath": "compute/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": [
+      "Microsoft.Compute"
+    ]
   },
   {
     "basePath": "confidentialledger/resource-manager",
@@ -234,6 +283,12 @@
   },
   {
     "basePath": "confluent/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "connectedvmware/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -257,7 +312,19 @@
     "onboarded": []
   },
   {
-    "basePath": "containerservice/resource-manager",
+    "basePath": "containerservice/resource-manager/Microsoft.ContainerService/aks",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "containerservice/resource-manager/Microsoft.ContainerService/fleet",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "containerstorage/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -270,18 +337,14 @@
   },
   {
     "basePath": "cost-management/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.CostManagement"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
     "basePath": "cpim/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.AzureActiveDirectory"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
@@ -292,6 +355,12 @@
   },
   {
     "basePath": "customproviders/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "dashboard/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -352,10 +421,8 @@
   },
   {
     "basePath": "dataprotection/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.DataProtection"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
@@ -377,7 +444,27 @@
     "onboarded": []
   },
   {
+    "basePath": "devcenter/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "developerhub/resource-manager",
+    "onboardedToAutogen": "no",
+    "missing": [
+      "Microsoft.DevHub"
+    ],
+    "onboarded": []
+  },
+  {
     "basePath": "deviceprovisioningservices/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "deviceregistry/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -390,6 +477,12 @@
   },
   {
     "basePath": "devops/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "devopsinfrastructure/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -408,10 +501,8 @@
   },
   {
     "basePath": "dfp/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.Dynamics365Fraudprotection"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
@@ -422,10 +513,8 @@
   },
   {
     "basePath": "dnc/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.DelegatedNetwork"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
@@ -437,6 +526,12 @@
     "onboarded": []
   },
   {
+    "basePath": "dnsresolver/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "domainservices/resource-manager",
     "onboardedToAutogen": "no",
     "missing": [
@@ -445,11 +540,21 @@
     "onboarded": []
   },
   {
+    "basePath": "dynatrace/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "edgemarketplace/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "edgeorder/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.EdgeOrder"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
@@ -461,7 +566,19 @@
     "onboarded": []
   },
   {
+    "basePath": "education/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "elastic/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "elasticsan/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -491,15 +608,25 @@
     "onboarded": []
   },
   {
+    "basePath": "fist/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "fluidrelay/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.FluidRelay"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
     "basePath": "frontdoor/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "graphservicesprod/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -523,6 +650,12 @@
     "onboarded": []
   },
   {
+    "basePath": "hdinsight/resource-manager/Microsoft.HDInsight/HDInsightOnAks",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "hdinsight/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
@@ -541,7 +674,31 @@
     "onboarded": []
   },
   {
+    "basePath": "help/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "hybridaks/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "hybridcloud/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "hybridcompute/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "hybridconnectivity/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -589,11 +746,21 @@
     "onboarded": []
   },
   {
-    "basePath": "iotsecurity/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.IoTSecurity"
-    ],
+    "basePath": "iotoperationsdataprocessor/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "iotoperationsmq/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "iotoperationsorchestrator/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
@@ -621,6 +788,24 @@
     "onboarded": []
   },
   {
+    "basePath": "liftrastronomer/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "liftrqumulo/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "loadtestservice/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "logic/resource-manager",
     "onboardedToAutogen": "no",
     "missing": [
@@ -636,10 +821,8 @@
   },
   {
     "basePath": "m365securityandcompliance/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.M365SecurityAndCompliance"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
@@ -674,6 +857,12 @@
   },
   {
     "basePath": "managednetwork/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "managednetworkfabric/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -717,27 +906,45 @@
     "onboarded": []
   },
   {
+    "basePath": "marketplacecatalog/resource-manager/Microsoft.Marketplace",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "marketplacecatalog/resource-manager/Search",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "marketplacecatalog/resource-manager/Solutions",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "marketplacecatalog/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "marketplacenotifications/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.MarketplaceNotifications"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
     "basePath": "marketplaceordering/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.MarketplaceOrdering"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
     "basePath": "mediaservices/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.Media"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
@@ -759,17 +966,27 @@
     "onboarded": []
   },
   {
+    "basePath": "mobilenetwork/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "monitor/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
   },
   {
+    "basePath": "mpcnetworkfunction/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "msi/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.ManagedIdentity"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
@@ -786,14 +1003,36 @@
   },
   {
     "basePath": "network/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.Network"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
-    "basePath": "notebooks/resource-manager/Microsoft.Notebooks/preview/2019-10-11-preview",
+    "basePath": "networkanalytics/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "networkcloud/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "networkfunction/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "newrelic/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "nginx/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -805,9 +1044,23 @@
     "onboarded": []
   },
   {
-    "basePath": "operationalinsights/resource-manager",
+    "basePath": "oep/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "offazurespringboot/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "operationalinsights/resource-manager",
+    "onboardedToAutogen": "no",
+    "missing": [
+      "Microsoft.OperationalInsights"
+    ],
     "onboarded": []
   },
   {
@@ -819,7 +1072,25 @@
     "onboarded": []
   },
   {
+    "basePath": "orbital/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "paloaltonetworks/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "peering/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "playwrighttesting/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -832,6 +1103,12 @@
   },
   {
     "basePath": "portal/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "portalservices/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -881,15 +1158,25 @@
     "onboarded": []
   },
   {
+    "basePath": "professionalservice/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "providerhub/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.ProviderHub"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
     "basePath": "purview/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "purviewpolicy/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -902,10 +1189,14 @@
   },
   {
     "basePath": "quota/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.Quota"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "recommendationsservice/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
@@ -916,6 +1207,12 @@
   },
   {
     "basePath": "recoveryservicesbackup/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "recoveryservicesdatareplication/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -957,6 +1254,12 @@
     "onboarded": []
   },
   {
+    "basePath": "resourceconnector/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "resourcegraph/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
@@ -976,21 +1279,15 @@
   },
   {
     "basePath": "resources/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.Features",
-      "Microsoft.Solutions"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
-    "basePath": "resources/resource-manager",
+    "basePath": "riskiq/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
-    "onboarded": [
-      "Microsoft.Resources",
-      "Microsoft.Authorization"
-    ]
+    "onboarded": []
   },
   {
     "basePath": "saas/resource-manager",
@@ -1000,6 +1297,18 @@
   },
   {
     "basePath": "scheduler/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "scom/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "scvmm/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -1018,10 +1327,14 @@
   },
   {
     "basePath": "securityandcompliance/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.SecurityAndCompliance"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "securitydevops/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
@@ -1058,14 +1371,26 @@
   },
   {
     "basePath": "servicefabricmanagedclusters/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.ServiceFabricManagedClusters"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
     "basePath": "servicefabricmesh/resource-manager",
+    "onboardedToAutogen": "no",
+    "missing": [
+      "Microsoft.ServiceFabricMesh"
+    ],
+    "onboarded": []
+  },
+  {
+    "basePath": "servicelinker/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "servicenetworking/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -1078,6 +1403,18 @@
   },
   {
     "basePath": "softwareplan/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "solutions/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "sphere/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -1107,6 +1444,12 @@
     "onboarded": []
   },
   {
+    "basePath": "storageactions/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "storagecache/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
@@ -1114,6 +1457,12 @@
   },
   {
     "basePath": "storageimportexport/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "storagemover/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []
@@ -1161,11 +1510,15 @@
     "onboarded": []
   },
   {
+    "basePath": "syntex/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "testbase/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.TestBase"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
@@ -1176,10 +1529,14 @@
   },
   {
     "basePath": "trafficmanager/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.Network"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "vi/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
@@ -1209,6 +1566,12 @@
     "onboarded": []
   },
   {
+    "basePath": "voiceservices/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
     "basePath": "web/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
@@ -1216,10 +1579,8 @@
   },
   {
     "basePath": "webpubsub/resource-manager",
-    "onboardedToAutogen": "no",
-    "missing": [
-      "Microsoft.SignalRService"
-    ],
+    "onboardedToAutogen": "yes",
+    "missing": [],
     "onboarded": []
   },
   {
@@ -1236,6 +1597,30 @@
   },
   {
     "basePath": "workloadmonitor/resource-manager",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "workloads/resource-manager/Microsoft.Workloads/SAPVirtualInstance",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "workloads/resource-manager/Microsoft.Workloads/connectors",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "workloads/resource-manager/Microsoft.Workloads/monitors",
+    "onboardedToAutogen": "yes",
+    "missing": [],
+    "onboarded": []
+  },
+  {
+    "basePath": "workloads/resource-manager",
     "onboardedToAutogen": "yes",
     "missing": [],
     "onboarded": []

@@ -1,48 +1,28 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 import { ScopeType, AutoGenConfig } from './models';
 import { postProcessor as insightsApplicationPostProcessor } from './processors/Microsoft.Insights.Application';
-import { postProcessor as resourcesPostProcessor } from './processors/Microsoft.Resources';
 import { postProcessor as machineLearningPostProcessor } from './processors/Microsoft.MachineLearning';
+import { postProcessor as kustoPostProcessor } from './processors/Microsoft.Kusto';
 import { postProcessor as machineLearningServicesPostProcessor } from './processors/Microsoft.MachineLearningServices';
 import { postProcessor as storageProcessor } from './processors/Microsoft.Storage';
+import { postProcessor as computeProcessor } from './processors/Microsoft.Compute';
 import { postProcessor as policyProcessor } from './processors/Microsoft.Authorization';
 import { postProcessor as securityInsightsPostProcessor } from './processors/Microsoft.SecurityInsights';
+import { postProcessor as costManagementPostProcessor } from './processors/Microsoft.CostManagement';
+import { postProcessor as providerHubPostProcessor } from './processors/Microsoft.ProviderHub';
+import { postProcessor as mediaPostProcessor } from './processors/Microsoft.Media';
+import { postProcessor as networkPostProcessor } from './processors/Microsoft.Network';
+import { postProcessor as azureStackHciPostProcessor } from './processors/Microsoft.AzureStackHCI';
+import { postProcessor as resourcesPostProcessor } from './processors/Microsoft.Resources';
+import { postProcessor as serviceFabricPostProcessor } from './processors/Microsoft.ServiceFabric';
 import { lowerCaseEquals } from './utils';
 
 // New providers are onboarded by default. The providers listed here are the only ones **not** onboarded.
 const disabledProviders: AutoGenConfig[] = [
     {
-        basePath: 'advisor/resource-manager',
-        namespace: 'Microsoft.Advisor',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'agrifood/resource-manager',
-        namespace: 'Microsoft.AgFoodPlatform',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'azure-kusto/resource-manager',
-        namespace: 'Microsoft.Kusto',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'azurestackhci/resource-manager',
-        namespace: 'Microsoft.AzureStackHCI',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'baremetalinfrastructure/resource-manager',
-        namespace: 'Microsoft.BareMetalInfrastructure',
-        disabledForAutogen: true,
-    },
-    {
         basePath: 'cloudshell/resource-manager',
         namespace: 'Microsoft.Portal',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'compute/resource-manager',
-        namespace: 'Microsoft.Compute',
         disabledForAutogen: true,
     },
     {
@@ -51,23 +31,15 @@ const disabledProviders: AutoGenConfig[] = [
         disabledForAutogen: true,
     },
     {
-        basePath: 'confidentialledger/resource-manager',
-        namespace: 'Microsoft.ConfidentialLedger',
+        // Disabled until the unexpected character error in the swagger spec is fixed
+        basePath: 'cdn/resource-manager',
+        namespace: 'Microsoft.Cdn',
         disabledForAutogen: true,
     },
     {
-        basePath: 'cost-management/resource-manager',
-        namespace: 'Microsoft.CostManagement',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'cpim/resource-manager',
-        namespace: 'Microsoft.AzureActiveDirectory',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'dataprotection/resource-manager',
-        namespace: 'Microsoft.DataProtection',
+        // Disabled until the enum mismatch in the swagger spec is fixed
+        basePath: 'developerhub/resource-manager',
+        namespace: 'Microsoft.DevHub',
         disabledForAutogen: true,
     },
     {
@@ -77,38 +49,21 @@ const disabledProviders: AutoGenConfig[] = [
         disabledForAutogen: true,
     },
     {
-        basePath: 'dfp/resource-manager',
-        namespace: 'Microsoft.Dynamics365Fraudprotection',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'dnc/resource-manager',
-        namespace: 'Microsoft.DelegatedNetwork',
-        disabledForAutogen: true,
-    },
-    {
         basePath: 'dns/resource-manager',
         namespace: 'Microsoft.Network',
         disabledForAutogen: true,
+        suffix: 'DNS',
     },
     {
-        basePath: 'edgeorder/resource-manager',
-        namespace: 'Microsoft.EdgeOrder',
+        basePath: 'privatedns/resource-manager',
+        namespace: 'Microsoft.Network',
         disabledForAutogen: true,
+        suffix: 'privateDns',
     },
     {
+        // Disabled as the swagger spec contains a bug (enum mismatch)
         basePath: 'edgeorderpartner/resource-manager',
         namespace: 'Microsoft.EdgeOrderPartner',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'fluidrelay/resource-manager',
-        namespace: 'Microsoft.FluidRelay',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'iotsecurity/resource-manager',
-        namespace: 'Microsoft.IoTSecurity',
         disabledForAutogen: true,
     },
     {
@@ -117,38 +72,8 @@ const disabledProviders: AutoGenConfig[] = [
         disabledForAutogen: true,
     },
     {
-        basePath: 'm365securityandcompliance/resource-manager',
-        namespace: 'Microsoft.M365SecurityAndCompliance',
-        disabledForAutogen: true,
-    },
-    {
         basePath: 'managedservices/resource-manager',
         namespace: 'Microsoft.ManagedServices',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'marketplacenotifications/resource-manager',
-        namespace: 'Microsoft.MarketplaceNotifications',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'marketplaceordering/resource-manager',
-        namespace: 'Microsoft.MarketplaceOrdering',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'mediaservices/resource-manager',
-        namespace: 'Microsoft.Media',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'msi/resource-manager',
-        namespace: 'Microsoft.ManagedIdentity',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'network/resource-manager',
-        namespace: 'Microsoft.Network',
         disabledForAutogen: true,
     },
     {
@@ -157,53 +82,8 @@ const disabledProviders: AutoGenConfig[] = [
         disabledForAutogen: true,
     },
     {
-        basePath: 'privatedns/resource-manager',
-        namespace: 'Microsoft.Network',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'providerhub/resource-manager',
-        namespace: 'Microsoft.ProviderHub',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'quota/resource-manager',
-        namespace: 'Microsoft.Quota',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'resources/resource-manager',
-        namespace: 'Microsoft.Features',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'resources/resource-manager',
-        namespace: 'Microsoft.Solutions',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'securityandcompliance/resource-manager',
-        namespace: 'Microsoft.SecurityAndCompliance',
-        disabledForAutogen: true,
-    },
-    {
         basePath: 'service-map/resource-manager',
         namespace: 'Microsoft.OperationalInsights',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'servicefabricmanagedclusters/resource-manager',
-        namespace: 'Microsoft.ServiceFabricManagedClusters',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'testbase/resource-manager',
-        namespace: 'Microsoft.TestBase',
-        disabledForAutogen: true,
-    },
-    {
-        basePath: 'trafficmanager/resource-manager',
-        namespace: 'Microsoft.Network',
         disabledForAutogen: true,
     },
     {
@@ -212,8 +92,27 @@ const disabledProviders: AutoGenConfig[] = [
         disabledForAutogen: true,
     },
     {
-        basePath: 'webpubsub/resource-manager',
-        namespace: 'Microsoft.SignalRService',
+        // Disabled as the swagger spec contains a bug (enum mismatch)
+        basePath: 'servicefabricmesh/resource-manager',
+        namespace: 'Microsoft.ServiceFabricMesh',
+        disabledForAutogen: true,
+    },
+    {
+        // Disabled as the swagger spec contains a bug (enum mismatch - missing: ProvisioningStateEnum)
+        basePath: 'operationalinsights/resource-manager',
+        namespace: 'Microsoft.OperationalInsights',
+        disabledForAutogen: true,
+    },
+    {
+        // Disabled temporally due to invalid tags failure
+        basePath: 'confidentialLedger/resource-manager',
+        namespace: 'Microsoft.ConfidentialLedger',
+        disabledForAutogen: true
+    },
+    {
+        // Disabled temporally due to unsupported directory structure
+        basePath: 'containerservice/resource-manager',
+        namespace: 'Microsoft.ContainerService',
         disabledForAutogen: true,
     },
 ];
@@ -226,12 +125,55 @@ const autoGenList: AutoGenConfig[] = [
         namespace: 'Microsoft.Addons',
     },
     {
+        basePath: 'authorization/resource-manager',
+        namespace: 'Microsoft.Authorization',
+        resourceConfig: [
+            {
+                type: 'roleAssignments',
+                scopes: ScopeType.Extension | ScopeType.ManagementGroup | ScopeType.ResourceGroup | ScopeType.Subscription | ScopeType.Tenant
+            },
+            {
+                type: 'roleDefinitions',
+                scopes: ScopeType.Extension | ScopeType.ManagementGroup | ScopeType.ResourceGroup | ScopeType.Subscription | ScopeType.Tenant
+            },
+            {
+                type: 'roleAssignmentScheduleRequests',
+                scopes: ScopeType.Extension | ScopeType.ManagementGroup | ScopeType.ResourceGroup | ScopeType.Subscription | ScopeType.Tenant
+            },
+            {
+                type: 'roleEligibilityScheduleRequests',
+                scopes: ScopeType.Extension | ScopeType.ManagementGroup | ScopeType.ResourceGroup | ScopeType.Subscription | ScopeType.Tenant
+            },
+            {
+                type: 'roleManagementPolicyAssignments',
+                scopes: ScopeType.Extension | ScopeType.ManagementGroup | ScopeType.ResourceGroup | ScopeType.Subscription | ScopeType.Tenant
+            },
+            {
+                type: 'roleAssignmentApprovals/stages',
+                scopes: ScopeType.Tenant
+            },
+            {
+                type: 'accessReviewHistoryDefinitions',
+                scopes: ScopeType.Extension | ScopeType.ManagementGroup | ScopeType.ResourceGroup | ScopeType.Subscription | ScopeType.Tenant
+            },
+            {
+                type: 'accessReviewScheduleDefinitions',
+                scopes: ScopeType.Extension | ScopeType.ManagementGroup | ScopeType.ResourceGroup | ScopeType.Subscription | ScopeType.Tenant
+            },
+            {
+                type: 'accessReviewScheduleDefinitions/instances',
+                scopes: ScopeType.Extension | ScopeType.ManagementGroup | ScopeType.ResourceGroup | ScopeType.Subscription | ScopeType.Tenant
+            },
+            {
+                type: 'accessReviewScheduleSettings',
+                scopes: ScopeType.Extension | ScopeType.ManagementGroup | ScopeType.ResourceGroup | ScopeType.Subscription | ScopeType.Tenant
+            },
+        ],
+        suffix: 'Authz'
+    },
+    {
         basePath: 'adhybridhealthservice/resource-manager',
         namespace: 'Microsoft.ADHybridHealthService',
-    },
-    { 
-        basePath: 'cdn/resource-manager',
-        namespace: 'Microsoft.Cdn',
     },
     {
         basePath: 'analysisservices/resource-manager',
@@ -281,7 +223,7 @@ const autoGenList: AutoGenConfig[] = [
         basePath: 'azurestack/resource-manager',
         namespace: 'Microsoft.AzureStack',
     },
-    { 
+    {
         basePath: 'batch/resource-manager',
         namespace: 'Microsoft.Batch',
     },
@@ -295,19 +237,19 @@ const autoGenList: AutoGenConfig[] = [
         resourceConfig: [
             {
                 type: 'blueprintAssignments',
-                scopes: ScopeType.Subcription | ScopeType.ManagementGroup,
+                scopes: ScopeType.Subscription | ScopeType.ManagementGroup,
             },
             {
                 type: 'blueprints',
-                scopes: ScopeType.Subcription | ScopeType.ManagementGroup,
+                scopes: ScopeType.Subscription | ScopeType.ManagementGroup,
             },
             {
                 type: 'blueprints/artifacts',
-                scopes: ScopeType.Subcription | ScopeType.ManagementGroup,
+                scopes: ScopeType.Subscription | ScopeType.ManagementGroup,
             },
             {
                 type: 'blueprints/versions',
-                scopes: ScopeType.Subcription | ScopeType.ManagementGroup,
+                scopes: ScopeType.Subscription | ScopeType.ManagementGroup,
             },
         ]
     },
@@ -357,27 +299,78 @@ const autoGenList: AutoGenConfig[] = [
         basePath: 'databox/resource-manager',
         namespace: 'Microsoft.DataBox',
     },
-    { 
-        basePath: 'operationalinsights/resource-manager',
-        namespace: 'Microsoft.OperationalInsights',
-    },
     {
         basePath: 'consumption/resource-manager',
         namespace: 'Microsoft.Consumption',
         resourceConfig: [
             {
                 type: 'budgets',
-                scopes: ScopeType.Subcription | ScopeType.ResourceGroup | ScopeType.Extension,
+                scopes: ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
             },
         ],
     },
     {
-        basePath: 'customerlockbox/resource-manager',
-        namespace: 'Microsoft.CustomerLockbox',
+        basePath: 'cost-management/resource-manager',
+        namespace: 'Microsoft.CostManagement',
+        resourceConfig: [
+            {
+                type: 'exports',
+                scopes: ScopeType.ManagementGroup | ScopeType.Subscription | ScopeType.ResourceGroup,
+            },
+            {
+                type: 'budgets',
+                scopes: ScopeType.ManagementGroup | ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
+            },
+            {
+                type: 'views',
+                scopes: ScopeType.Tenant | ScopeType.ManagementGroup | ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
+            },
+            {
+                type: 'scheduledActions',
+                scopes: ScopeType.Tenant | ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
+            },
+            {
+                type: 'benefitRecommendations',
+                scopes: ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
+            },
+            {
+                type: 'benefitUtilizationSummaries',
+                scopes: ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
+            },
+            {
+                type: 'generateCostDetailsReport',
+                scopes: ScopeType.Subscription | ScopeType.Extension,
+            },
+            {
+                type: 'alerts',
+                scopes: ScopeType.ManagementGroup | ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
+            },
+            {
+                type: 'forecast',
+                scopes: ScopeType.ManagementGroup | ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
+            },
+            {
+                type: 'dimensions',
+                scopes: ScopeType.ManagementGroup | ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
+            },
+            {
+                type: 'query',
+                scopes: ScopeType.ManagementGroup | ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
+            },
+            {
+                type: 'settings',
+                scopes: ScopeType.Subscription | ScopeType.Extension,
+            },
+            {
+                type: 'pricesheets',
+                scopes: ScopeType.Extension
+            }
+        ],
+        postProcessor: costManagementPostProcessor,
     },
     {
-        basePath: 'containerservice/resource-manager',
-        namespace: 'Microsoft.ContainerService',
+        basePath: 'customerlockbox/resource-manager',
+        namespace: 'Microsoft.CustomerLockbox',
     },
     {
         basePath: 'commerce/resource-manager',
@@ -420,14 +413,14 @@ const autoGenList: AutoGenConfig[] = [
         namespace: 'Microsoft.DesktopVirtualization',
     },
     {
-      basePath: 'digitaltwins/resource-manager',
-      namespace: 'Microsoft.DigitalTwins',
-      resourceConfig: [
-          {
-              type: 'integrationResources',
-              scopes: ScopeType.Extension,
-          }
-      ]
+        basePath: 'digitaltwins/resource-manager',
+        namespace: 'Microsoft.DigitalTwins',
+        resourceConfig: [
+            {
+                type: 'integrationResources',
+                scopes: ScopeType.Extension,
+            }
+        ]
     },
     {
         basePath: 'deviceprovisioningservices/resource-manager',
@@ -454,11 +447,11 @@ const autoGenList: AutoGenConfig[] = [
         basePath: 'resourcegraph/resource-manager',
         namespace: 'Microsoft.ResourceGraph',
     },
-    { 
+    {
         basePath: 'redis/resource-manager',
         namespace: 'Microsoft.Cache',
     },
-    { 
+    {
         basePath: 'redisenterprise/resource-manager',
         namespace: 'Microsoft.Cache',
         suffix: 'Enterprise'
@@ -472,9 +465,9 @@ const autoGenList: AutoGenConfig[] = [
         namespace: 'Microsoft.HDInsight',
     },
     {
-        basePath: 'resourcehealth/resource-manager',
-        namespace: 'Microsoft.ResourceHealth',
-    }, 
+        basePath: 'resourcehealth/resource-manager',
+        namespace: 'Microsoft.ResourceHealth',
+    },
     {
         basePath: 'EnterpriseKnowledgeGraph/resource-manager',
         namespace: 'Microsoft.EnterpriseKnowledgeGraph',
@@ -499,10 +492,20 @@ const autoGenList: AutoGenConfig[] = [
     {
         basePath: 'healthcareapis/resource-manager',
         namespace: 'Microsoft.HealthcareApis',
-    }, 
+    },
     {
         basePath: 'hybridcompute/resource-manager',
         namespace: 'Microsoft.HybridCompute',
+    },
+    {
+        basePath: 'hybridconnectivity/resource-manager',
+        namespace: 'Microsoft.HybridConnectivity',
+        resourceConfig: [
+            {
+                type: 'endpoints',
+                scopes: ScopeType.Extension,
+            }
+        ]
     },
     {
         basePath: 'hybriddatamanager/resource-manager',
@@ -521,6 +524,20 @@ const autoGenList: AutoGenConfig[] = [
         namespace: 'Microsoft.IoTSpaces',
     },
     {
+        basePath: 'iotsecurity/resource-manager',
+        namespace: 'Microsoft.IoTSecurity',
+        resourceConfig: [
+            {
+                type: 'sensors',
+                scopes: ScopeType.Extension,
+            },
+            {
+                type: 'sites',
+                scopes: ScopeType.Extension,
+            }
+        ]
+    },
+    {
         basePath: 'intune/resource-manager',
         namespace: 'Microsoft.Intune',
     },
@@ -528,13 +545,13 @@ const autoGenList: AutoGenConfig[] = [
         basePath: 'labservices/resource-manager',
         namespace: 'Microsoft.LabServices',
     },
-    { 
+    {
         basePath: 'eventgrid/resource-manager',
         namespace: 'Microsoft.EventGrid',
         resourceConfig: [
             {
                 type: 'eventSubscriptions',
-                scopes: ScopeType.Extension | ScopeType.Subcription | ScopeType.ResourceGroup,
+                scopes: ScopeType.Extension | ScopeType.Subscription | ScopeType.ResourceGroup,
             },
         ],
     },
@@ -542,6 +559,11 @@ const autoGenList: AutoGenConfig[] = [
         basePath: 'machinelearning/resource-manager',
         namespace: 'Microsoft.MachineLearning',
         postProcessor: machineLearningPostProcessor,
+    },
+    {
+        basePath: 'azure-kusto/resource-manager',
+        namespace: 'Microsoft.Kusto',
+        postProcessor: kustoPostProcessor,
     },
     {
         basePath: 'machinelearningservices/resource-manager',
@@ -575,7 +597,7 @@ const autoGenList: AutoGenConfig[] = [
         resourceConfig: [
             {
                 type: 'scopeAssignments',
-                scopes: ScopeType.Subcription,
+                scopes: ScopeType.Subscription,
             },
         ],
     },
@@ -622,8 +644,8 @@ const autoGenList: AutoGenConfig[] = [
         namespace: 'Microsoft.NetApp',
     },
     {
-      basePath: 'notificationhubs/resource-manager',
-      namespace: 'Microsoft.NotificationHubs'
+        basePath: 'notificationhubs/resource-manager',
+        namespace: 'Microsoft.NotificationHubs'
     },
     {
         basePath: 'policyinsights/resource-manager',
@@ -631,11 +653,11 @@ const autoGenList: AutoGenConfig[] = [
         resourceConfig: [
             {
                 type: 'remediations',
-                scopes: ScopeType.Subcription | ScopeType.ResourceGroup | ScopeType.ManagementGroup,
+                scopes: ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.ManagementGroup,
             },
             {
                 type: 'attestations',
-                scopes: ScopeType.Subcription | ScopeType.ResourceGroup,
+                scopes: ScopeType.Subscription | ScopeType.ResourceGroup,
             }
         ]
     },
@@ -656,8 +678,32 @@ const autoGenList: AutoGenConfig[] = [
         namespace: 'Microsoft.DBforPostgreSQL',
     },
     {
+        basePath: 'postgresqlhsc/resource-manager',
+        namespace: 'Microsoft.DBforPostgreSQL',
+        suffix: 'Hsc',
+    },
+    {
         basePath: 'powerbiembedded/resource-manager',
         namespace: 'Microsoft.PowerBI',
+    },
+    {
+        basePath: 'providerhub/resource-manager',
+        namespace: 'Microsoft.ProviderHub',
+        postProcessor: providerHubPostProcessor
+    },
+    {
+        basePath: 'quota/resource-manager',
+        namespace: 'Microsoft.Quota',
+        resourceConfig: [
+            {
+                type: 'quotaLimits',
+                scopes: ScopeType.Extension,
+            },
+            {
+                type: 'quotas',
+                scopes: ScopeType.Extension,
+            },
+        ],
     },
     {
         basePath: 'redhatopenshift/resource-manager',
@@ -669,11 +715,11 @@ const autoGenList: AutoGenConfig[] = [
         resourceConfig: [
             {
                 type: 'deployments',
-                scopes: ScopeType.Tenant | ScopeType.ManagementGroup | ScopeType.Subcription | ScopeType.ResourceGroup,
+                scopes: ScopeType.Tenant | ScopeType.ManagementGroup | ScopeType.Subscription | ScopeType.ResourceGroup,
             },
             {
                 type: 'tags',
-                scopes: ScopeType.ManagementGroup | ScopeType.Subcription | ScopeType.ResourceGroup | ScopeType.Extension,
+                scopes: ScopeType.ManagementGroup | ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
             },
         ],
         postProcessor: resourcesPostProcessor,
@@ -684,58 +730,31 @@ const autoGenList: AutoGenConfig[] = [
         resourceConfig: [
             {
                 type: 'policyDefinitions',
-                scopes: ScopeType.Tenant | ScopeType.ManagementGroup | ScopeType.Subcription,
+                scopes: ScopeType.Tenant | ScopeType.ManagementGroup | ScopeType.Subscription,
             },
             {
                 type: 'policySetDefinitions',
-                scopes: ScopeType.Tenant | ScopeType.ManagementGroup | ScopeType.Subcription,
+                scopes: ScopeType.Tenant | ScopeType.ManagementGroup | ScopeType.Subscription,
             },
             {
                 type: 'policyAssignments',
-                scopes: ScopeType.ManagementGroup | ScopeType.Subcription | ScopeType.ResourceGroup | ScopeType.Extension,
+                scopes: ScopeType.ManagementGroup | ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
             },
             {
                 type: 'policyExemptions',
-                scopes: ScopeType.ManagementGroup | ScopeType.Subcription | ScopeType.ResourceGroup | ScopeType.Extension,
+                scopes: ScopeType.ManagementGroup | ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
+            },
+            {
+                type: 'policyPricings',
+                scopes: ScopeType.ManagementGroup | ScopeType.Subscription,
             },
             {
                 type: 'locks',
-                scopes: ScopeType.Subcription | ScopeType.ResourceGroup | ScopeType.Extension,
+                scopes: ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
             },
         ],
         suffix: 'Resources',
         postProcessor: policyProcessor
-    },
-    {
-        basePath: 'authorization/resource-manager',
-        namespace: 'Microsoft.Authorization',
-        resourceConfig: [
-            {
-                type: 'roleAssignments',
-                scopes: ScopeType.Extension | ScopeType.ManagementGroup | ScopeType.ResourceGroup | ScopeType.Subcription | ScopeType.Tenant
-            },
-            {
-                type: 'roleDefinitions',
-                scopes: ScopeType.Extension | ScopeType.ManagementGroup | ScopeType.ResourceGroup | ScopeType.Subcription | ScopeType.Tenant
-            },
-            {
-                type: 'roleAssignmentScheduleRequests',
-                scopes: ScopeType.Extension | ScopeType.ManagementGroup | ScopeType.ResourceGroup | ScopeType.Subcription | ScopeType.Tenant
-            },
-            {
-                type: 'roleEligibilityScheduleRequests',
-                scopes: ScopeType.Extension | ScopeType.ManagementGroup | ScopeType.ResourceGroup | ScopeType.Subcription | ScopeType.Tenant
-            },
-            {
-                type: 'roleManagementPolicyAssignments',
-                scopes: ScopeType.Extension | ScopeType.ManagementGroup | ScopeType.ResourceGroup | ScopeType.Subcription | ScopeType.Tenant
-            },
-            {
-                type: 'roleAssignmentApprovals/stages',
-                scopes: ScopeType.Tenant
-            }
-        ],
-        suffix: 'Authz'
     },
     {
         basePath: 'relay/resource-manager',
@@ -766,10 +785,7 @@ const autoGenList: AutoGenConfig[] = [
     {
         basePath: 'servicefabric/resource-manager',
         namespace: 'Microsoft.ServiceFabric',
-    },
-    {
-        basePath: 'servicefabricmesh/resource-manager',
-        namespace: 'Microsoft.ServiceFabricMesh',
+        postProcessor: serviceFabricPostProcessor,
     },
     {
         basePath: 'servicelinker/resource-manager',
@@ -779,11 +795,20 @@ const autoGenList: AutoGenConfig[] = [
                 type: 'linkers',
                 scopes: ScopeType.Extension,
             },
+            {
+                type: 'dryruns',
+                scopes: ScopeType.Extension,
+            },
         ],
     },
     {
         basePath: 'signalr/resource-manager',
         namespace: 'Microsoft.SignalRService',
+    },
+    {
+        basePath: 'webpubsub/resource-manager',
+        namespace: 'Microsoft.SignalRService',
+        suffix: 'WebPubSub',
     },
     {
         basePath: 'sqlvirtualmachine/resource-manager',
@@ -819,19 +844,19 @@ const autoGenList: AutoGenConfig[] = [
         resourceConfig: [
             {
                 type: 'advancedThreatProtectionSettings',
-                scopes: ScopeType.Subcription | ScopeType.ResourceGroup | ScopeType.Extension,
+                scopes: ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
             },
             {
                 type: 'assessments',
-                scopes: ScopeType.Subcription | ScopeType.ResourceGroup | ScopeType.Extension,
+                scopes: ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
             },
             {
                 type: 'deviceSecurityGroups',
-                scopes: ScopeType.Subcription | ScopeType.ResourceGroup | ScopeType.Extension,
+                scopes: ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
             },
             {
                 type: 'iotSensors',
-                scopes: ScopeType.Subcription | ScopeType.ResourceGroup | ScopeType.Extension,
+                scopes: ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
             },
             {
                 type: 'informationProtectionPolicies',
@@ -843,7 +868,19 @@ const autoGenList: AutoGenConfig[] = [
             },
             {
                 type: 'iotSites',
-                scopes: ScopeType.Subcription | ScopeType.ResourceGroup | ScopeType.Extension,
+                scopes: ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
+            },
+            {
+                type: 'assessments/governanceAssignments',
+                scopes: ScopeType.Subscription,
+            },
+            {
+                type: 'governanceRules',
+                scopes: ScopeType.Subscription,
+            },
+            {
+                type: 'defenderForStorageSettings',
+                scopes: ScopeType.Subscription,
             },
         ]
     },
@@ -862,9 +899,24 @@ const autoGenList: AutoGenConfig[] = [
         suffix: '1200'
     },
     {
+        basePath: 'resources/resource-manager',
+        namespace: 'Microsoft.Solutions',
+        suffix: 'resourcesolutions'
+    },
+    {
+        basePath: 'solutions/resource-manager',
+        namespace: 'Microsoft.Solutions',
+        suffix: 'solutions'
+    },
+    {
         basePath: 'storage/resource-manager',
         namespace: 'Microsoft.Storage',
         postProcessor: storageProcessor
+    },
+    {
+        basePath: 'compute/resource-manager',
+        namespace: 'Microsoft.Compute',
+        postProcessor: computeProcessor
     },
     {
         basePath: 'vmwarecloudsimple/resource-manager',
@@ -874,11 +926,11 @@ const autoGenList: AutoGenConfig[] = [
         basePath: 'visualstudio/resource-manager',
         namespace: 'Microsoft.VisualStudio',
     },
-    { 
+    {
         basePath: 'sql/resource-manager',
         namespace: 'Microsoft.Sql',
     },
-    { 
+    {
         basePath: 'scheduler/resource-manager',
         namespace: 'Microsoft.Scheduler',
     },
@@ -886,16 +938,16 @@ const autoGenList: AutoGenConfig[] = [
         basePath: 'search/resource-manager',
         namespace: 'Microsoft.Search',
     },
-    { 
+    {
         basePath: 'subscription/resource-manager',
         namespace: 'Microsoft.Subscription',
     },
-    { 
+    {
         basePath: 'storsimple8000series/resource-manager',
         namespace: 'Microsoft.StorSimple',
         suffix: '8000',
     },
-    { 
+    {
         basePath: 'support/resource-manager',
         namespace: 'Microsoft.Support',
     },
@@ -964,6 +1016,10 @@ const autoGenList: AutoGenConfig[] = [
         namespace: 'Microsoft.Logz',
     },
     {
+        basePath: 'dynatrace/resource-manager',
+        namespace: 'Dynatrace.Observability',
+    },
+    {
         basePath: 'healthbot/resource-manager',
         namespace: 'Microsoft.HealthBot',
     },
@@ -1006,7 +1062,7 @@ const autoGenList: AutoGenConfig[] = [
         resourceConfig: [
             {
                 type: 'diagnosticSettings',
-                scopes: ScopeType.Subcription | ScopeType.Extension,
+                scopes: ScopeType.Subscription | ScopeType.Extension,
             },
             {
                 type: 'guestDiagnosticSettingsAssociation',
@@ -1053,6 +1109,44 @@ const autoGenList: AutoGenConfig[] = [
     {
         basePath: 'deviceupdate/resource-manager',
         namespace: 'Microsoft.DeviceUpdate',
+    },
+    {
+        basePath: 'mediaservices/resource-manager',
+        namespace: 'Microsoft.Media',
+        postProcessor: mediaPostProcessor
+    },
+    {
+        basePath: 'trafficmanager/resource-manager',
+        namespace: 'Microsoft.Network',
+        suffix: 'TrafficManager',
+    },
+    {
+        basePath: 'network/resource-manager',
+        namespace: 'Microsoft.Network',
+        postProcessor: networkPostProcessor,
+        suffix: 'NRP'
+    },
+    {
+        basePath: 'dnsresolver/resource-manager',
+        namespace: 'Microsoft.Network',
+        suffix: 'DnsResolver',
+    },
+    {
+        //Pause autogeneration until errors are fixed
+        basePath: 'azurestackhci/resource-manager',
+        namespace: 'Microsoft.AzureStackHCI',
+        postProcessor: azureStackHciPostProcessor,
+        disabledForAutogen: true,
+    },
+    {
+        basePath: 'advisor/resource-manager',
+        namespace: 'Microsoft.Advisor',
+        resourceConfig: [
+            {
+                type: 'recommendations/suppressions',
+                scopes: ScopeType.Tenant | ScopeType.ManagementGroup | ScopeType.Subscription | ScopeType.ResourceGroup | ScopeType.Extension,
+            },
+        ]
     },
 ];
 

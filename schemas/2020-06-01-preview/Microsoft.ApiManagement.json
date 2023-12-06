@@ -3900,6 +3900,17 @@
           "type": "string",
           "description": "Resource Id of a target logger."
         },
+        "metrics": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "Emit custom metrics via emit-metric policy. Applicable only to Application Insights diagnostic settings."
+        },
         "operationNameFormat": {
           "oneOf": [
             {
@@ -4469,7 +4480,7 @@
       "properties": {
         "identityClientId": {
           "type": "string",
-          "description": "SystemAssignedIdentity or UserAssignedIdentity Client Id which will be used to access key vault secret."
+          "description": "Null for SystemAssignedIdentity or Client Id for UserAssignedIdentity , which will be used to access key vault secret."
         },
         "secretIdentifier": {
           "type": "string",

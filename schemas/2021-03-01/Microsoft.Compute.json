@@ -494,23 +494,20 @@
             "2021-03-01"
           ]
         },
-        "excludeDisks": {
+        "name": {
+          "type": "string",
+          "description": "The name of the restore point."
+        },
+        "properties": {
           "oneOf": [
             {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/ApiEntityReference"
-              }
+              "$ref": "#/definitions/RestorePointProperties"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
             }
           ],
-          "description": "List of disk resource ids that the customer wishes to exclude from the restore point. If no disks are specified, all disks will be included."
-        },
-        "name": {
-          "type": "string",
-          "description": "The name of the restore point."
+          "description": "The restore point properties."
         },
         "type": {
           "type": "string",
@@ -522,6 +519,7 @@
       "required": [
         "apiVersion",
         "name",
+        "properties",
         "type"
       ],
       "description": "Microsoft.Compute/restorePointCollections/restorePoints"
@@ -1233,7 +1231,7 @@
         "proximityPlacementGroup": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -1245,7 +1243,7 @@
             {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/SubResource"
+                "$ref": "#/definitions/SubResourceModel"
               }
             },
             {
@@ -1400,7 +1398,7 @@
         "swappableCloudService": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResourceModel"
+              "$ref": "#/definitions/SubResource"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -1604,7 +1602,7 @@
         "sourceVault": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResourceModel"
+              "$ref": "#/definitions/SubResource"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -1629,7 +1627,7 @@
         "sourceVault": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResourceModel"
+              "$ref": "#/definitions/SubResource"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -2343,7 +2341,7 @@
         "managedDisk": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -2353,7 +2351,7 @@
         "snapshot": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -2433,7 +2431,7 @@
         "managedDisk": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -2473,7 +2471,7 @@
         "snapshot": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -2527,7 +2525,7 @@
         "sourceVirtualMachine": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -2665,7 +2663,7 @@
         "sourceVault": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -2689,7 +2687,7 @@
         "sourceVault": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -2873,7 +2871,7 @@
         "publicIPAddress": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResourceModel"
+              "$ref": "#/definitions/SubResource"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -2883,7 +2881,7 @@
         "subnet": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResourceModel"
+              "$ref": "#/definitions/SubResource"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -2928,7 +2926,7 @@
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
             }
           ],
-          "description": "Specifies the storage account type for the managed disk. NOTE: UltraSSD_LRS can only be used with data disks, it cannot be used with OS Disk."
+          "description": "Specifies the storage account type for the managed disk. Managed OS disk storage account type can only be set when you create the scale set. NOTE: UltraSSD_LRS can only be used with data disks, it cannot be used with OS Disk."
         }
       },
       "description": "The parameters of a managed disk."
@@ -3250,7 +3248,7 @@
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
             }
           ],
-          "description": "Specifies set of certificates that should be installed onto the virtual machine."
+          "description": "Specifies set of certificates that should be installed onto the virtual machine. To install certificates on a virtual machine it is recommended to use the [Azure Key Vault virtual machine extension for Linux](https://docs.microsoft.com/azure/virtual-machines/extensions/key-vault-linux) or the [Azure Key Vault virtual machine extension for Windows](https://docs.microsoft.com/azure/virtual-machines/extensions/key-vault-windows)."
         },
         "windowsConfiguration": {
           "oneOf": [
@@ -3371,7 +3369,7 @@
     "PublicIPAddressSku": {
       "type": "object",
       "properties": {
-        "publicIPAddressSkuName": {
+        "name": {
           "oneOf": [
             {
               "type": "string",
@@ -3386,7 +3384,7 @@
           ],
           "description": "Specify public IP sku name."
         },
-        "publicIPAddressSkuTier": {
+        "tier": {
           "oneOf": [
             {
               "type": "string",
@@ -3402,9 +3400,6 @@
           "description": "Specify public IP sku tier."
         }
       },
-      "required": [
-        "publicIPAddressSkuName"
-      ],
       "description": "Describes the public IP Sku"
     },
     "RestorePointCollectionProperties": {
@@ -3443,6 +3438,39 @@
             "2021-03-01"
           ]
         },
+        "name": {
+          "type": "string",
+          "description": "The name of the restore point."
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/RestorePointProperties"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "The restore point properties."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "restorePoints"
+          ]
+        }
+      },
+      "required": [
+        "apiVersion",
+        "name",
+        "properties",
+        "type"
+      ],
+      "description": "Microsoft.Compute/restorePointCollections/restorePoints"
+    },
+    "RestorePointProperties": {
+      "type": "object",
+      "properties": {
         "excludeDisks": {
           "oneOf": [
             {
@@ -3457,23 +3485,13 @@
           ],
           "description": "List of disk resource ids that the customer wishes to exclude from the restore point. If no disks are specified, all disks will be included."
         },
-        "name": {
+        "timeCreated": {
           "type": "string",
-          "description": "The name of the restore point."
-        },
-        "type": {
-          "type": "string",
-          "enum": [
-            "restorePoints"
-          ]
+          "format": "date-time",
+          "description": "Gets the creation time of the restore point."
         }
       },
-      "required": [
-        "apiVersion",
-        "name",
-        "type"
-      ],
-      "description": "Microsoft.Compute/restorePointCollections/restorePoints"
+      "description": "The restore point properties."
     },
     "RollingUpgradePolicy": {
       "type": "object",
@@ -3880,7 +3898,7 @@
         },
         "certificateUrl": {
           "type": "string",
-          "description": "This is the URL of a certificate that has been uploaded to Key Vault as a secret. For adding a secret to the Key Vault, see [Add a key or secret to the key vault](https://docs.microsoft.com/azure/key-vault/key-vault-get-started/#add). In this case, your certificate needs to be It is the Base64 encoding of the following JSON Object which is encoded in UTF-8: <br><br> {<br>  \"data\":\"<Base64-encoded-certificate>\",<br>  \"dataType\":\"pfx\",<br>  \"password\":\"<pfx-file-password>\"<br>}"
+          "description": "This is the URL of a certificate that has been uploaded to Key Vault as a secret. For adding a secret to the Key Vault, see [Add a key or secret to the key vault](https://docs.microsoft.com/azure/key-vault/key-vault-get-started/#add). In this case, your certificate needs to be It is the Base64 encoding of the following JSON Object which is encoded in UTF-8: <br><br> {<br> \"data\":\"<Base64-encoded-certificate>\",<br> \"dataType\":\"pfx\",<br> \"password\":\"<pfx-file-password>\"<br>} <br> To install certificates on a virtual machine it is recommended to use the [Azure Key Vault virtual machine extension for Linux](https://docs.microsoft.com/azure/virtual-machines/extensions/key-vault-linux) or the [Azure Key Vault virtual machine extension for Windows](https://docs.microsoft.com/azure/virtual-machines/extensions/key-vault-windows)."
         }
       },
       "description": "Describes a single certificate reference in a Key Vault, and where the certificate should reside on the VM."
@@ -3891,7 +3909,7 @@
         "sourceVault": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -4144,7 +4162,7 @@
         "dscpConfiguration": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -4201,7 +4219,7 @@
         "networkSecurityGroup": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -4277,7 +4295,7 @@
             {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/SubResource"
+                "$ref": "#/definitions/SubResourceModel"
               }
             },
             {
@@ -4291,7 +4309,7 @@
             {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/SubResource"
+                "$ref": "#/definitions/SubResourceModel"
               }
             },
             {
@@ -4305,7 +4323,7 @@
             {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/SubResource"
+                "$ref": "#/definitions/SubResourceModel"
               }
             },
             {
@@ -4354,7 +4372,7 @@
         "subnet": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -4381,7 +4399,7 @@
         "availabilitySet": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -4443,7 +4461,7 @@
         "host": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -4453,7 +4471,7 @@
         "hostGroup": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -4516,7 +4534,7 @@
         "proximityPlacementGroup": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -4562,7 +4580,7 @@
         "virtualMachineScaleSet": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -4694,7 +4712,7 @@
         "publicIPPrefix": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -5220,7 +5238,7 @@
             {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/SubResource"
+                "$ref": "#/definitions/SubResourceModel"
               }
             },
             {
@@ -5234,7 +5252,7 @@
             {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/SubResource"
+                "$ref": "#/definitions/SubResourceModel"
               }
             },
             {
@@ -5248,7 +5266,7 @@
             {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/SubResource"
+                "$ref": "#/definitions/SubResourceModel"
               }
             },
             {
@@ -5262,7 +5280,7 @@
             {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/SubResource"
+                "$ref": "#/definitions/SubResourceModel"
               }
             },
             {
@@ -5499,7 +5517,7 @@
         "networkSecurityGroup": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -5739,7 +5757,7 @@
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
             }
           ],
-          "description": "Specifies set of certificates that should be installed onto the virtual machines in the scale set."
+          "description": "Specifies set of certificates that should be installed onto the virtual machines in the scale set. To install certificates on a virtual machine it is recommended to use the [Azure Key Vault virtual machine extension for Linux](https://docs.microsoft.com/azure/virtual-machines/extensions/key-vault-linux) or the [Azure Key Vault virtual machine extension for Windows](https://docs.microsoft.com/azure/virtual-machines/extensions/key-vault-windows)."
         },
         "windowsConfiguration": {
           "oneOf": [
@@ -5794,7 +5812,7 @@
         "hostGroup": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -5841,7 +5859,7 @@
         "proximityPlacementGroup": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -6026,7 +6044,7 @@
         "publicIPPrefix": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -6454,7 +6472,7 @@
         "availabilitySet": {
           "oneOf": [
             {
-              "$ref": "#/definitions/SubResource"
+              "$ref": "#/definitions/SubResourceModel"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -6897,7 +6915,7 @@
       "properties": {
         "certificateUrl": {
           "type": "string",
-          "description": "This is the URL of a certificate that has been uploaded to Key Vault as a secret. For adding a secret to the Key Vault, see [Add a key or secret to the key vault](https://docs.microsoft.com/azure/key-vault/key-vault-get-started/#add). In this case, your certificate needs to be It is the Base64 encoding of the following JSON Object which is encoded in UTF-8: <br><br> {<br>  \"data\":\"<Base64-encoded-certificate>\",<br>  \"dataType\":\"pfx\",<br>  \"password\":\"<pfx-file-password>\"<br>}"
+          "description": "This is the URL of a certificate that has been uploaded to Key Vault as a secret. For adding a secret to the Key Vault, see [Add a key or secret to the key vault](https://docs.microsoft.com/azure/key-vault/key-vault-get-started/#add). In this case, your certificate needs to be It is the Base64 encoding of the following JSON Object which is encoded in UTF-8: <br><br> {<br> \"data\":\"<Base64-encoded-certificate>\",<br> \"dataType\":\"pfx\",<br> \"password\":\"<pfx-file-password>\"<br>} <br> To install certificates on a virtual machine it is recommended to use the [Azure Key Vault virtual machine extension for Linux](https://docs.microsoft.com/azure/virtual-machines/extensions/key-vault-linux) or the [Azure Key Vault virtual machine extension for Windows](https://docs.microsoft.com/azure/virtual-machines/extensions/key-vault-windows)."
         },
         "protocol": {
           "oneOf": [

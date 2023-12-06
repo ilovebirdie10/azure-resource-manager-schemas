@@ -363,6 +363,10 @@
           ],
           "description": "Unmatched properties from the message are deserialized this collection"
         },
+        "aof-backup-enabled": {
+          "type": "string",
+          "description": "Specifies whether the aof backup is enabled"
+        },
         "aof-storage-connection-string-0": {
           "type": "string",
           "description": "First storage account connection string"
@@ -370,6 +374,10 @@
         "aof-storage-connection-string-1": {
           "type": "string",
           "description": "First storage account connection string"
+        },
+        "authnotrequired": {
+          "type": "string",
+          "description": "Specifies whether the authentication is disabled. Setting this property is highly discouraged from security point of view."
         },
         "maxfragmentationmemory-reserved": {
           "type": "string",
@@ -412,7 +420,8 @@
         "enableNonSslPort": {
           "oneOf": [
             {
-              "type": "boolean"
+              "type": "boolean",
+              "default": false
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -464,7 +473,7 @@
         },
         "redisVersion": {
           "type": "string",
-          "description": "Redis version. Only major version will be used in PUT/PATCH request with current valid values: (4, 6)"
+          "description": "Redis version. This should be in the form 'major[.minor[.build]]' (only 'major' is required) or the value 'latest' which refers to the latest stable Redis version that is available. Only the major and minor version are used in a PUT/PATCH request. Supported versions: 4.0, 6.0."
         },
         "replicasPerMaster": {
           "oneOf": [
@@ -520,7 +529,7 @@
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
             }
           ],
-          "description": "Static IP address. Required when deploying a Redis cache inside an existing Azure Virtual Network."
+          "description": "Static IP address. Optionally, may be specified when deploying a Redis cache inside an existing Azure Virtual Network; auto assigned by default."
         },
         "subnetId": {
           "oneOf": [
@@ -578,6 +587,7 @@
       "properties": {
         "linkedRedisCacheId": {
           "type": "string",
+          "format": "arm-id",
           "description": "Fully qualified resourceId of the linked redis cache."
         },
         "linkedRedisCacheLocation": {
@@ -816,8 +826,9 @@
         },
         "maintenanceWindow": {
           "type": "string",
+          "default": "PT5H",
           "format": "duration",
-          "description": "ISO8601 timespan specifying how much time cache patching can take. "
+          "description": "ISO8601 timespan specifying how much time cache patching can take."
         },
         "startHourUtc": {
           "oneOf": [

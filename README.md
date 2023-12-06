@@ -3,6 +3,8 @@
 This is the repo for template deployment schemas hosted under `https://schema.management.azure.com/schemas`. Please see below for information on contributing and publishing updated schemas.
 
 ## Updating Schemas
+> We only publish template schemas for resource providers that are **publicly available**. This means that there should be no restrictions (private preview, internal-only allowlisting) on who can call your APIs. As a general rule, if there is not an API definition in the [Public API Specs Repo](https://github.com/Azure/azure-rest-api-specs), we will not consider a PR.
+
 There are two processes for updating schemas:
 1. **Daily autogeneration**: Schemas are automatically generated from definitions in the [azure-rest-api-specs](https://github.com/Azure/azure-rest-api-specs) repo. This requires [onboarding](/generator/README.md#onboarding-teams-to-autogeneration-pipeline) on a per-provider basis.
 2. **Manually**: Schemas are manually authored and committed via PR.
@@ -24,7 +26,7 @@ You can use the generator in this repo to automatically generate a schema from a
 ```bash
 cd generator
 npm install
-npm run generate-single myprovider/resource-manager
+npm run generate-single -- --base-path myprovider/resource-manager
 ```
 4. Review the generator logs to ensure no errors, and review the changes generated.
 5. Ensure that you have reviewed the guidelines under [Submitting a PR](#submitting-a-pr).

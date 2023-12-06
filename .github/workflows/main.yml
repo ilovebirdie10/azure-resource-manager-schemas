@@ -4,22 +4,30 @@ on:
   pull_request:
     branches: [ main ]
 jobs:
-  build:
+  schema-tests:
+    name: Schema Tests
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
 
       - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1.7.2
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '5.0.x'
 
       - name: Install NPM modules
         run: npm ci
+        working-directory: ./tools
+      
+      - name: Lint
+        run: npm run lint
         working-directory: ./tools
 
       - name: Run CI tests
@@ -30,19 +38,45 @@ jobs:
         run: dotnet test DeploymentsSchemaTests/DeploymentsSchemaTests.csproj
         working-directory: ./tools
 
-  automerge:
+  build-generator:
+    name: Build Generator
     runs-on: ubuntu-latest
-    needs: build
-    env:
-      PR_PREFIX: sdkAuto/
-    if: ${{ github.event.pull_request.user.login == 'openapi-sdkautomation[bot]' }}
+
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
+      
+      - name: Install
+        run: npm ci
+        working-directory: ./generator
+      
+      - name: Lint
+        run: npm run lint
+        working-directory: ./generator
+
+      - name: Build
+        run: npm run build
+        working-directory: ./generator
+
+  automerge:
+    runs-on: ubuntu-latest
+    needs: schema-tests
+    env:
+      PR_PREFIX: sdkAuto/
+    if: ${{ github.event.pull_request.user.login == 'azure-sdk' }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
 
       - name: Install NPM modules
         run: npm ci
@@ -61,6 +95,7 @@ jobs:
           done <<< "$exec";
           
           if [ $check_result == 'false' ] ; then
+            echo "Base path: '$basePath' not onboarded for autogeneration" 1>&2
             exit 1
           fi
         working-directory: ./generator

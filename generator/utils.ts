@@ -1,19 +1,11 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 import { spawn } from 'child_process';
 import path from 'path';
-import fs from 'fs';
-import { promisify } from 'util';
-import chalk from 'chalk';
+import colors from 'colors';
 import { series } from 'async';
-
-const readdir = promisify(fs.readdir);
-const stat = promisify(fs.stat);
-const unlink = promisify(fs.unlink);
-const rmdir = promisify(fs.rmdir);
-const exists = promisify(fs.exists);
-const readFile = promisify(fs.readFile);
-const writeFile = promisify(fs.writeFile);
-const mkdir = promisify(fs.mkdir);
-
+import { existsSync } from 'fs';
+import { readdir, stat, unlink, rmdir, readFile, writeFile, mkdir } from 'fs/promises';
 
 export function executeCmd(cwd: string, cmd: string, args: string[]) : Promise<number> {
     return new Promise((resolve, reject) => {
@@ -24,8 +16,8 @@ export function executeCmd(cwd: string, cmd: string, args: string[]) : Promise<n
             windowsHide: true,
         });
 
-        child.stdout.on('data', data => process.stdout.write(chalk.grey(data.toString())));
-        child.stderr.on('data', data => process.stdout.write(chalk.red(data.toString())));
+        child.stdout.on('data', data => process.stdout.write(colors.grey(data.toString())));
+        child.stderr.on('data', data => process.stdout.write(colors.red(data.toString())));
         child.on('error', err => {
             reject(err);
         });
@@ -88,7 +80,7 @@ export async function findRecursive(basePath: string, filter: (name: string) => 
 }
 
 export async function rmdirRecursive(basePath: string) {
-    if (!await exists(basePath)) {
+    if (!existsSync(basePath)) {
         return;
     }
 
@@ -174,6 +166,7 @@ export async function readJsonFile(filePath: string) {
     return JSON.parse(rawContents);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function writeJsonFile(filePath: string, json: any) {
     const rawContents = JSON.stringify(json, null, 2);
 
@@ -181,25 +174,25 @@ export async function writeJsonFile(filePath: string, json: any) {
 }
 
 export async function safeMkdir(filePath: string) {
-    if (!await exists(filePath)) {
+    if (!existsSync(filePath)) {
         await mkdir(filePath, { recursive: true });
     }
 }
 
 export async function safeUnlink(filePath: string) {
-    if (await exists(filePath)) {
+    if (existsSync(filePath)) {
         await unlink(filePath);
     }
 }
 
-export async function fileExists(filePath: string) {
-    return await exists(filePath);
+export function fileExists(filePath: string) {
+    return existsSync(filePath);
 }
 
 export function executeSynchronous<T>(asyncFunc: () => Promise<T>) {
     series(
         [asyncFunc],
-        (error, _) => {
+        (error) => {
             if (error) {
                 throw error;
             }

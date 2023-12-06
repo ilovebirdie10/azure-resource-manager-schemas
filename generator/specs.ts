@@ -1,14 +1,14 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 import path from 'path';
-import fs from 'fs';
-import { promisify } from 'util';
 import { cloneGitRepo } from './git';
 import { findRecursive, lowerCaseEquals } from './utils';
 import { ReadmeTag, AutoGenConfig, CodeBlock } from './models';
 import * as constants from './constants'
 import * as cm from '@ts-common/commonmark-to-markdown'
 import * as yaml from 'js-yaml'
-
-const exists = promisify(fs.exists);
+import { existsSync } from 'fs';
+import { readFile, writeFile } from 'fs/promises';
 
 export async function resolveAbsolutePath(localPath: string) {
     if (path.isAbsolute(localPath)) {
@@ -17,7 +17,7 @@ export async function resolveAbsolutePath(localPath: string) {
     return path.resolve(constants.generatorRoot, localPath);
 }
 
-export async function validateAndReturnReadmePath(localPath: string, basePath: string) {
+export function validateAndReturnReadmePath(localPath: string, basePath: string) {
     let readme = '';
     if (basePath.toLowerCase().endsWith('readme.md')) {
         readme = path.resolve(localPath, basePath);
@@ -25,7 +25,7 @@ export async function validateAndReturnReadmePath(localPath: string, basePath: s
         readme = path.resolve(localPath, 'specification', basePath, 'readme.md')
     }
 
-    if (!await exists(readme)) {
+    if (!existsSync(readme)) {
         throw new Error(`Unable to find readme '${readme}' in specs repo`);
     }
 
@@ -77,7 +77,7 @@ function isExcludedBasePath(basePath: string) {
 }
 
 export async function prepareReadme(readme: string, autoGenConfig?: AutoGenConfig) {
-    const content = fs.readFileSync(readme).toString();
+    const content = (await readFile(readme)).toString();
     const markdownEx = cm.parse(content);
     const fileSet = new Set<string>();
     for (const node of cm.iterate(markdownEx.markDown)) {
@@ -103,7 +103,7 @@ export async function prepareReadme(readme: string, autoGenConfig?: AutoGenConfi
     let readmeTag = {} as ReadmeTag;
     fileSet.forEach(inputFile => {
         const match = constants.pathRegex.exec(inputFile);
-        if (!!match) {
+        if (match) {
             const mNamespace = match[1];
             const mApiVersion = match[2];
             if (!autoGenConfig || lowerCaseEquals(mNamespace, autoGenConfig.namespace)) {
@@ -115,7 +115,7 @@ export async function prepareReadme(readme: string, autoGenConfig?: AutoGenConfi
         }
     });
 
-    if (!!autoGenConfig?.readmeTag) {
+    if (autoGenConfig?.readmeTag) {
         readmeTag = {...readmeTag, ...autoGenConfig.readmeTag };
     }
 
@@ -123,7 +123,7 @@ export async function prepareReadme(readme: string, autoGenConfig?: AutoGenConfi
 
     const schemaReadme = readme.replace(/\.md$/i, '.azureresourceschema.md');
 
-    fs.writeFileSync(schemaReadme, schemaReadmeContent);
+    await writeFile(schemaReadme, schemaReadmeContent);
 }
 
 function compositeSchemaReadme(readmeTag: ReadmeTag): string {

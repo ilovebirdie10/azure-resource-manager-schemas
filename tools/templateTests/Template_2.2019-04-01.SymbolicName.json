@@ -44,7 +44,7 @@
         }
       },
       "Symbol2": {
-        "type": "Microsoft.Network/trafficManagerProfiles",
+        "type": "Microsoft.Network/trafficmanagerprofiles",
         "apiVersion": "2015-11-01",
         "name": "a",
         "location": "global",
@@ -433,20 +433,6 @@
           "additional": "value"
         }
       },
-      "Symbol28": {
-        "type": "Microsoft.Media/mediaServices",
-        "apiVersion": "2015-10-01",
-        "name": "sfdsfw",
-        "location": "East US",
-        "properties": {
-          "storageAccounts": [
-            {
-              "id": "123",
-              "isPrimary": false
-            }
-          ]
-        }
-      },
       "Symbol29": {
         "type": "Microsoft.Cache/Redis",
         "name": "redis",
@@ -600,7 +586,7 @@
       },
       "Symbol36": {
         "type": "Microsoft.Compute/virtualMachines/extensions",
-        "apiVersion": "2016-03-30",
+        "apiVersion": "2017-12-01",
         "name": "myextension",
         "location": "East US",
         "properties": {
@@ -613,7 +599,7 @@
       },
       "Symbol37": {
         "type": "Microsoft.Compute/virtualMachines/extensions",
-        "apiVersion": "2016-04-30-preview",
+        "apiVersion": "2017-12-01",
         "name": "myextension",
         "location": "East US",
         "properties": {
@@ -626,7 +612,7 @@
       },
       "Symbol38": {
         "type": "Microsoft.Compute/virtualMachines/extensions",
-        "apiVersion": "2015-06-15",
+        "apiVersion": "2017-12-01",
         "name": "extension1",
         "location": "West US",
         "properties": {
@@ -650,7 +636,7 @@
         "type": "Microsoft.Compute/virtualMachines/extensions",
         "location": "Canada East",
         "tags": {},
-        "apiVersion": "2015-06-15",
+        "apiVersion": "2017-12-01",
         "properties": {
           "publisher": "Microsoft.Azure.RecoveryServices",
           "type": "VMSnapshot",
@@ -673,7 +659,7 @@
         "type": "Microsoft.Compute/virtualMachines/extensions",
         "location": "Canada East",
         "tags": {},
-        "apiVersion": "2015-06-15",
+        "apiVersion": "2017-12-01",
         "properties": {
           "publisher": "Microsoft.Azure.NetworkWatcher",
           "type": "NetworkWatcherAgentWindows",
@@ -686,7 +672,7 @@
       },
       "Symbol41": {
         "type": "Microsoft.Compute/virtualMachines/extensions",
-        "apiVersion": "2016-04-30-preview",
+        "apiVersion": "2017-12-01",
         "name": "extension1",
         "location": "West US",
         "properties": {
@@ -710,7 +696,7 @@
         "type": "Microsoft.Compute/virtualMachines/extensions",
         "location": "Canada East",
         "tags": {},
-        "apiVersion": "2016-04-30-preview",
+        "apiVersion": "2017-12-01",
         "properties": {
           "publisher": "Microsoft.Azure.RecoveryServices",
           "type": "VMSnapshot",
@@ -733,7 +719,7 @@
         "type": "Microsoft.Compute/virtualMachines/extensions",
         "location": "Canada East",
         "tags": {},
-        "apiVersion": "2016-04-30-preview",
+        "apiVersion": "2017-12-01",
         "properties": {
           "publisher": "Microsoft.Azure.NetworkWatcher",
           "type": "NetworkWatcherAgentWindows",
@@ -1378,7 +1364,7 @@
         }
       },
       "Symbol71": {
-        "type": "Microsoft.Network/trafficManagerProfiles",
+        "type": "Microsoft.Network/trafficmanagerprofiles",
         "apiVersion": "2017-03-01",
         "name": "profile1",
         "location": "global",
@@ -1525,7 +1511,7 @@
         }
       },
       "Symbol80": {
-        "type": "Microsoft.Network/trafficManagerProfiles",
+        "type": "Microsoft.Network/trafficmanagerprofiles",
         "apiVersion": "2017-05-01",
         "location": "global",
         "name": "abc",

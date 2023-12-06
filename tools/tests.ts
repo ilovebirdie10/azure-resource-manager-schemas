@@ -1,17 +1,17 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 import { expect } from 'chai';
 import Ajv from 'ajv';
 import * as url from 'url';
 import path from 'path';
 import fs from 'fs';
-import { promisify } from 'util';
+import { readFile } from 'fs/promises';
 import { getLanguageService } from 'vscode-json-languageservice';
 import { TextDocument } from 'vscode-languageserver-types';
 import draft4MetaSchema from 'ajv/lib/refs/json-schema-draft-04.json';
 import * as schemaTestsRunner from './schemaTestsRunner';
 import 'mocha';
 import { findCycle } from './cycleCheck';
-
-const readFile = promisify(fs.readFile);
 
 const schemasFolder = __dirname + '/../schemas/';
 const schemaTestsFolder = __dirname + '/../tests/';
@@ -145,6 +145,7 @@ const schemaTestPaths = listSchemaPaths(schemaTestsFolder);
 schemaTestPaths.push(testSchemasFolder + 'ResourceMetaSchema.tests.json');
 const templateTestPaths = listSchemaPaths(templateTestsFolder);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const schemaTestMap: {[path: string]: any} = {};
 for (const testPath of schemaTestPaths) {
   const contents = fs.readFileSync(testPath, { encoding: 'utf8' });
@@ -212,7 +213,7 @@ describe('Run individual schema test', () => {
 describe('Validate test templates against VSCode language service', () => {
   for (const templateTestFile of templateTestPaths) {
     it(`running schema validation on '${templateTestFile}'`, async function() {
-      this.timeout(30000);
+      this.timeout(60000);
 
       const service = getLanguageService({
         schemaRequestService: loadRawSchema,

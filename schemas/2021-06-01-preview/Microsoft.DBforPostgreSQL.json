@@ -41,6 +41,9 @@
               },
               {
                 "$ref": "#/definitions/flexibleServers_configurations_childResource"
+              },
+              {
+                "$ref": "#/definitions/flexibleServers_databases_childResource"
               }
             ]
           }
@@ -126,6 +129,45 @@
       ],
       "description": "Microsoft.DBforPostgreSQL/flexibleServers/configurations"
     },
+    "flexibleServers_databases": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "type": "string",
+          "enum": [
+            "2021-06-01-preview"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the database."
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/DatabaseProperties"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "The properties of a database."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Microsoft.DBforPostgreSQL/flexibleServers/databases"
+          ]
+        }
+      },
+      "required": [
+        "apiVersion",
+        "name",
+        "properties",
+        "type"
+      ],
+      "description": "Microsoft.DBforPostgreSQL/flexibleServers/databases"
+    },
     "flexibleServers_firewallRules": {
       "type": "object",
       "properties": {
@@ -173,7 +215,8 @@
         "backupRetentionDays": {
           "oneOf": [
             {
-              "type": "integer"
+              "type": "integer",
+              "default": "7"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -212,6 +255,20 @@
         }
       },
       "description": "The properties of a configuration."
+    },
+    "DatabaseProperties": {
+      "type": "object",
+      "properties": {
+        "charset": {
+          "type": "string",
+          "description": "The charset of the database."
+        },
+        "collation": {
+          "type": "string",
+          "description": "The collation of the database."
+        }
+      },
+      "description": "The properties of a database."
     },
     "FirewallRuleProperties": {
       "type": "object",
@@ -286,6 +343,45 @@
       ],
       "description": "Microsoft.DBforPostgreSQL/flexibleServers/configurations"
     },
+    "flexibleServers_databases_childResource": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "type": "string",
+          "enum": [
+            "2021-06-01-preview"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the database."
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/DatabaseProperties"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "The properties of a database."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "databases"
+          ]
+        }
+      },
+      "required": [
+        "apiVersion",
+        "name",
+        "properties",
+        "type"
+      ],
+      "description": "Microsoft.DBforPostgreSQL/flexibleServers/databases"
+    },
     "flexibleServers_firewallRules_childResource": {
       "type": "object",
       "properties": {
@@ -345,6 +441,7 @@
         },
         "standbyAvailabilityZone": {
           "type": "string",
+          "default": "",
           "description": "availability zone information of the standby."
         }
       },
@@ -355,12 +452,14 @@
       "properties": {
         "customWindow": {
           "type": "string",
+          "default": "Disabled",
           "description": "indicates whether custom window is enabled or disabled"
         },
         "dayOfWeek": {
           "oneOf": [
             {
-              "type": "integer"
+              "type": "integer",
+              "default": "0"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -371,7 +470,8 @@
         "startHour": {
           "oneOf": [
             {
-              "type": "integer"
+              "type": "integer",
+              "default": "0"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -382,7 +482,8 @@
         "startMinute": {
           "oneOf": [
             {
-              "type": "integer"
+              "type": "integer",
+              "default": "0"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -398,10 +499,12 @@
       "properties": {
         "delegatedSubnetResourceId": {
           "type": "string",
+          "default": "",
           "description": "delegated subnet arm resource id."
         },
         "privateDnsZoneArmResourceId": {
           "type": "string",
+          "default": "",
           "description": "private dns zone arm resource id."
         }
       },
@@ -421,6 +524,7 @@
         },
         "availabilityZone": {
           "type": "string",
+          "default": "",
           "description": "availability zone information of the server."
         },
         "backup": {
@@ -503,21 +607,6 @@
             }
           ],
           "description": "Storage properties of a server"
-        },
-        "tags": {
-          "oneOf": [
-            {
-              "type": "object",
-              "additionalProperties": {
-                "type": "string"
-              },
-              "properties": {}
-            },
-            {
-              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
-            }
-          ],
-          "description": "Application-specific metadata in the form of key-value pairs."
         },
         "version": {
           "oneOf": [

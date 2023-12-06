@@ -1121,9 +1121,6 @@
           "items": {
             "oneOf": [
               {
-                "$ref": "#/definitions/servers_databases_childResource"
-              },
-              {
                 "$ref": "#/definitions/servers_outboundFirewallRules_childResource"
               },
               {
@@ -1131,6 +1128,9 @@
               },
               {
                 "$ref": "#/definitions/servers_auditingSettings_childResource"
+              },
+              {
+                "$ref": "#/definitions/servers_databases_childResource"
               },
               {
                 "$ref": "#/definitions/servers_elasticPools_childResource"
@@ -1385,9 +1385,6 @@
           "items": {
             "oneOf": [
               {
-                "$ref": "#/definitions/servers_databases_transparentDataEncryption_childResource"
-              },
-              {
                 "$ref": "#/definitions/servers_databases_backupShortTermRetentionPolicies_childResource"
               },
               {
@@ -1416,6 +1413,9 @@
               },
               {
                 "$ref": "#/definitions/servers_databases_syncGroups_childResource"
+              },
+              {
+                "$ref": "#/definitions/servers_databases_transparentDataEncryption_childResource"
               },
               {
                 "$ref": "#/definitions/servers_databases_workloadGroups_childResource"

@@ -4,6 +4,124 @@
   "title": "Microsoft.StreamAnalytics",
   "description": "Microsoft StreamAnalytics Resource Types",
   "resourceDefinitions": {
+    "clusters": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "type": "string",
+          "enum": [
+            "2020-03-01"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "description": "The geo-location where the resource lives"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the cluster."
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ClusterProperties"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "The properties associated with a Stream Analytics cluster."
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/clusters_privateEndpoints_childResource"
+              }
+            ]
+          }
+        },
+        "sku": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ClusterSku"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "The SKU of the cluster. This determines the size/capacity of the cluster. Required on PUT (CreateOrUpdate) requests."
+        },
+        "tags": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              },
+              "properties": {}
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "Resource tags."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Microsoft.StreamAnalytics/clusters"
+          ]
+        }
+      },
+      "required": [
+        "apiVersion",
+        "name",
+        "properties",
+        "type"
+      ],
+      "description": "Microsoft.StreamAnalytics/clusters"
+    },
+    "clusters_privateEndpoints": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "type": "string",
+          "enum": [
+            "2020-03-01"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the private endpoint."
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/PrivateEndpointProperties"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "The properties associated with a private endpoint."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Microsoft.StreamAnalytics/clusters/privateEndpoints"
+          ]
+        }
+      },
+      "required": [
+        "apiVersion",
+        "name",
+        "properties",
+        "type"
+      ],
+      "description": "Microsoft.StreamAnalytics/clusters/privateEndpoints"
+    },
     "streamingjobs": {
       "type": "object",
       "properties": {
@@ -250,6 +368,21 @@
     }
   },
   "definitions": {
+    "AggregateFunctionProperties": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "Aggregate"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "description": "The properties that are associated with an aggregate function."
+    },
     "AvroSerialization": {
       "type": "object",
       "properties": {
@@ -349,6 +482,72 @@
         }
       },
       "description": "The properties that are associated with an Azure Data Lake Store."
+    },
+    "AzureFunctionOutputDataSource": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/AzureFunctionOutputDataSourceProperties"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "The properties that are associated with an Azure Function output."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Microsoft.AzureFunction"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "description": "Defines the metadata of AzureFunctionOutputDataSource"
+    },
+    "AzureFunctionOutputDataSourceProperties": {
+      "type": "object",
+      "properties": {
+        "apiKey": {
+          "type": "string",
+          "description": "If you want to use an Azure Function from another subscription, you can do so by providing the key to access your function."
+        },
+        "functionAppName": {
+          "type": "string",
+          "description": "The name of your Azure Functions app."
+        },
+        "functionName": {
+          "type": "string",
+          "description": "The name of the function in your Azure Functions app."
+        },
+        "maxBatchCount": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "A property that lets you specify the maximum number of events in each batch that's sent to Azure Functions. The default value is 100."
+        },
+        "maxBatchSize": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "A property that lets you set the maximum size for each output batch that's sent to your Azure function. The input unit is in bytes. By default, this value is 262,144 bytes (256 KB)."
+        }
+      },
+      "description": "The properties that are associated with an Azure Function output."
     },
     "AzureMachineLearningWebServiceFunctionBinding": {
       "type": "object",
@@ -833,6 +1032,10 @@
           ],
           "description": "Authentication Mode."
         },
+        "blobPathPrefix": {
+          "type": "string",
+          "description": "Blob path prefix."
+        },
         "container": {
           "type": "string",
           "description": "The name of a container within the associated Storage account. This container contains either the blob(s) to be read from or written to. Required on PUT (CreateOrReplace) requests."
@@ -895,6 +1098,22 @@
     "BlobReferenceInputDataSourceProperties": {
       "type": "object",
       "properties": {
+        "authenticationMode": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "Msi",
+                "UserToken",
+                "ConnectionString"
+              ]
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "Authentication Mode."
+        },
         "container": {
           "type": "string",
           "description": "The name of a container within the associated Storage account. This container contains either the blob(s) to be read from or written to. Required on PUT (CreateOrReplace) requests."
@@ -957,6 +1176,22 @@
     "BlobStreamInputDataSourceProperties": {
       "type": "object",
       "properties": {
+        "authenticationMode": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "Msi",
+                "UserToken",
+                "ConnectionString"
+              ]
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "Authentication Mode."
+        },
         "container": {
           "type": "string",
           "description": "The name of a container within the associated Storage account. This container contains either the blob(s) to be read from or written to. Required on PUT (CreateOrReplace) requests."
@@ -978,7 +1213,7 @@
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
             }
           ],
-          "description": "The partition count of the blob input data source. Range 1 - 256."
+          "description": "The partition count of the blob input data source. Range 1 - 1024."
         },
         "storageAccounts": {
           "oneOf": [
@@ -1010,6 +1245,100 @@
         }
       },
       "description": "The properties associated with a Stream Analytics cluster."
+    },
+    "ClusterProperties": {
+      "type": "object",
+      "properties": {
+        "provisioningState": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "Succeeded",
+                "Failed",
+                "Canceled",
+                "InProgress"
+              ]
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ]
+        }
+      },
+      "description": "The properties associated with a Stream Analytics cluster."
+    },
+    "ClusterSku": {
+      "type": "object",
+      "properties": {
+        "capacity": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 36,
+              "maximum": 396
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "Denotes the number of streaming units the cluster can support. Valid values for this property are multiples of 36 with a minimum value of 36 and maximum value of 216. Required on PUT (CreateOrUpdate) requests."
+        },
+        "name": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "Default"
+              ]
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "Specifies the SKU name of the cluster. Required on PUT (CreateOrUpdate) requests."
+        }
+      },
+      "description": "The SKU of the cluster. This determines the size/capacity of the cluster. Required on PUT (CreateOrUpdate) requests."
+    },
+    "clusters_privateEndpoints_childResource": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "type": "string",
+          "enum": [
+            "2020-03-01"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the private endpoint."
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/PrivateEndpointProperties"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "The properties associated with a private endpoint."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "privateEndpoints"
+          ]
+        }
+      },
+      "required": [
+        "apiVersion",
+        "name",
+        "properties",
+        "type"
+      ],
+      "description": "Microsoft.StreamAnalytics/clusters/privateEndpoints"
     },
     "Compression": {
       "type": "object",
@@ -1344,6 +1673,42 @@
       ],
       "description": "Describes an Event Hub input data source that contains stream data."
     },
+    "FileReferenceInputDataSource": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/FileReferenceInputDataSourceProperties"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "The properties that are associated with a file input containing reference data."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "File"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "description": "Describes a file input data source that contains reference data."
+    },
+    "FileReferenceInputDataSourceProperties": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "The path of the file."
+        }
+      },
+      "description": "The properties that are associated with a file input containing reference data."
+    },
     "Function": {
       "type": "object",
       "properties": {
@@ -1377,6 +1742,46 @@
       ],
       "properties": {},
       "description": "The physical binding of the function. For example, in the Azure Machine Learning web service’s case, this describes the endpoint."
+    },
+    "FunctionConfiguration": {
+      "type": "object",
+      "properties": {
+        "binding": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/FunctionBinding"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "The physical binding of the function. For example, in the Azure Machine Learning web service’s case, this describes the endpoint."
+        },
+        "inputs": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FunctionInput"
+              }
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ]
+        },
+        "output": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/FunctionOutput"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "Describes the output of a function."
+        }
+      }
     },
     "FunctionInput": {
       "type": "object",
@@ -1414,22 +1819,100 @@
       "oneOf": [
         {
           "$ref": "#/definitions/ScalarFunctionProperties"
+        },
+        {
+          "$ref": "#/definitions/AggregateFunctionProperties"
         }
       ],
-      "properties": {},
+      "properties": {
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/FunctionConfiguration"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ]
+        }
+      },
       "description": "The properties that are associated with a function."
+    },
+    "GatewayMessageBusOutputDataSource": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/GatewayMessageBusOutputDataSourceProperties"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "The properties that are associated with a Gateway Message Bus."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "GatewayMessageBus"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "description": "Describes a Gateway Message Bus output data source."
+    },
+    "GatewayMessageBusOutputDataSourceProperties": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "type": "string",
+          "description": "The name of the Service Bus topic."
+        }
+      },
+      "description": "The properties that are associated with a Gateway Message Bus."
+    },
+    "GatewayMessageBusStreamInputDataSource": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/GatewayMessageBusStreamInputDataSourceProperties"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "The properties that are associated with a gateway message bus input containing stream data."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "GatewayMessageBus"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "description": "Describes a blob input data source that contains stream data."
+    },
+    "GatewayMessageBusStreamInputDataSourceProperties": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "type": "string",
+          "description": "The name of the Service Bus topic."
+        }
+      },
+      "description": "The properties that are associated with a gateway message bus input containing stream data."
     },
     "Identity": {
       "type": "object",
       "properties": {
-        "principalId": {
-          "type": "string",
-          "description": "The identity principal ID"
-        },
-        "tenantId": {
-          "type": "string",
-          "description": "The identity tenantId"
-        },
         "type": {
           "type": "string",
           "description": "The identity type"
@@ -1723,6 +2206,9 @@
           "$ref": "#/definitions/DocumentDbOutputDataSource"
         },
         {
+          "$ref": "#/definitions/AzureFunctionOutputDataSource"
+        },
+        {
           "$ref": "#/definitions/ServiceBusQueueOutputDataSource"
         },
         {
@@ -1733,6 +2219,9 @@
         },
         {
           "$ref": "#/definitions/AzureDataLakeStoreOutputDataSource"
+        },
+        {
+          "$ref": "#/definitions/GatewayMessageBusOutputDataSource"
         }
       ],
       "properties": {},
@@ -1766,7 +2255,7 @@
         "sizeWindow": {
           "oneOf": [
             {
-              "type": "number"
+              "type": "integer"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
@@ -1877,9 +2366,89 @@
       },
       "description": "The properties that are associated with a Power BI output."
     },
+    "PrivateEndpointProperties": {
+      "type": "object",
+      "properties": {
+        "manualPrivateLinkServiceConnections": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PrivateLinkServiceConnection"
+              }
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "A list of connections to the remote resource. Immutable after it is set."
+        }
+      },
+      "description": "The properties associated with a private endpoint."
+    },
+    "PrivateLinkConnectionState": {
+      "type": "object",
+      "properties": {},
+      "description": "A collection of read-only information about the state of the connection to the private remote resource."
+    },
+    "PrivateLinkServiceConnection": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/PrivateLinkServiceConnectionProperties"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "Bag of properties defining a privatelinkServiceConnection."
+        }
+      },
+      "description": "A grouping of information about the connection to the remote resource."
+    },
+    "PrivateLinkServiceConnectionProperties": {
+      "type": "object",
+      "properties": {
+        "groupIds": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "The ID(s) of the group(s) obtained from the remote resource that this private endpoint should connect to. Required on PUT (CreateOrUpdate) requests."
+        },
+        "privateLinkServiceConnectionState": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/PrivateLinkConnectionState"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
+            }
+          ],
+          "description": "A collection of read-only information about the state of the connection to the private remote resource."
+        },
+        "privateLinkServiceId": {
+          "type": "string",
+          "description": "The resource id of the private link service. Required on PUT (CreateOrUpdate) requests."
+        }
+      },
+      "description": "Bag of properties defining a privatelinkServiceConnection."
+    },
     "ReferenceInputDataSource": {
       "type": "object",
       "oneOf": [
+        {
+          "$ref": "#/definitions/FileReferenceInputDataSource"
+        },
         {
           "$ref": "#/definitions/BlobReferenceInputDataSource"
         },
@@ -1916,62 +2485,9 @@
       ],
       "description": "The properties that are associated with an input containing reference data."
     },
-    "ScalarFunctionConfiguration": {
-      "type": "object",
-      "properties": {
-        "binding": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/FunctionBinding"
-            },
-            {
-              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
-            }
-          ],
-          "description": "The physical binding of the function. For example, in the Azure Machine Learning web service’s case, this describes the endpoint."
-        },
-        "inputs": {
-          "oneOf": [
-            {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/FunctionInput"
-              }
-            },
-            {
-              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
-            }
-          ],
-          "description": "A list of inputs describing the parameters of the function."
-        },
-        "output": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/FunctionOutput"
-            },
-            {
-              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
-            }
-          ],
-          "description": "Describes the output of a function."
-        }
-      },
-      "description": "Describes the configuration of the scalar function."
-    },
     "ScalarFunctionProperties": {
       "type": "object",
       "properties": {
-        "properties": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/ScalarFunctionConfiguration"
-            },
-            {
-              "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
-            }
-          ],
-          "description": "Describes the configuration of the scalar function."
-        },
         "type": {
           "type": "string",
           "enum": [
@@ -2597,6 +3113,9 @@
         },
         {
           "$ref": "#/definitions/IoTHubStreamInputDataSource"
+        },
+        {
+          "$ref": "#/definitions/GatewayMessageBusStreamInputDataSource"
         }
       ],
       "properties": {},
@@ -2659,7 +3178,8 @@
         "streamingUnits": {
           "oneOf": [
             {
-              "type": "integer"
+              "type": "integer",
+              "default": "3"
             },
             {
               "$ref": "https://schema.management.azure.com/schemas/common/definitions.json#/definitions/expression"
